@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.5 on win32)" generated="20200817 17:56:17.565" rpa="false">
+<suite id="s1" name="Robot-Framework-py3" source="C:\Users\zahed\eclipse-workspace\Robot-Framework-py3">
+<suite id="s1-s1" name="testData" source="C:\Users\zahed\eclipse-workspace\Robot-Framework-py3\testData">
+<suite id="s1-s1-s1" name="homeTest" source="C:\Users\zahed\eclipse-workspace\Robot-Framework-py3\testData\homeTest.robot">
+<test id="s1-s1-s1-t1" name="Untitled Test Case">
+<kw name="Run Keywords" library="BuiltIn" type="setup">
+<doc>Executes all the given keywords in a sequence.</doc>
+<arguments>
+<arg>Open Browser</arg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>AND</arg>
+<arg>Maximize Browser Window</arg>
+<arg>AND</arg>
+<arg>Set Selenium Speed</arg>
+<arg>${SELSPEED}</arg>
+</arguments>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20200817 17:56:18.162" level="INFO">Opening browser 'chrome' to base url 'https://finviz.com/'.</msg>
+<status status="PASS" starttime="20200817 17:56:18.161" endtime="20200817 17:56:27.419"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20200817 17:56:27.419" endtime="20200817 17:56:30.424"></status>
+</kw>
+<kw name="Set Selenium Speed" library="SeleniumLibrary">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>${SELSPEED}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.425" endtime="20200817 17:56:30.426"></status>
+</kw>
+<status status="PASS" starttime="20200817 17:56:18.160" endtime="20200817 17:56:30.426"></status>
+</kw>
+<kw name="Key Verify Title" library="user_Keywords">
+<arguments>
+<arg>${Tilte}</arg>
+</arguments>
+<kw name="Get Title" library="SeleniumLibrary">
+<doc>Returns the title of the current page.</doc>
+<assign>
+<var>${realTitle}</var>
+</assign>
+<msg timestamp="20200817 17:56:30.502" level="INFO">${realTitle} = FINVIZ.com - Stock Screener</msg>
+<status status="PASS" starttime="20200817 17:56:30.429" endtime="20200817 17:56:30.502"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${realTitle}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.503" endtime="20200817 17:56:30.504"></status>
+</kw>
+<kw name="Strip String" library="String">
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<arguments>
+<arg>${realTitle}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.504" endtime="20200817 17:56:30.505"></status>
+</kw>
+<kw name="Strip String" library="String">
+<doc>Remove leading and/or trailing whitespaces from the given string.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.506" endtime="20200817 17:56:30.506"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${realTitle}</arg>
+<arg>${title}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.506" endtime="20200817 17:56:30.507"></status>
+</kw>
+<kw name="Title Should Be" library="SeleniumLibrary">
+<doc>Verifies that the current page title equals ``title``.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20200817 17:56:30.513" level="INFO">Page title is 'FINVIZ.com - Stock Screener'.</msg>
+<status status="PASS" starttime="20200817 17:56:30.507" endtime="20200817 17:56:30.513"></status>
+</kw>
+<status status="PASS" starttime="20200817 17:56:30.427" endtime="20200817 17:56:30.514"></status>
+</kw>
+<kw name="Key Click element" library="user_Keywords">
+<arguments>
+<arg>${LOGIN}</arg>
+</arguments>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<doc>Waits until the element ``locator`` is visible.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:30.515" endtime="20200817 17:56:31.092"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20200817 17:56:31.094" level="INFO">Clicking element 'link=Screener'.</msg>
+<status status="PASS" starttime="20200817 17:56:31.093" endtime="20200817 17:56:32.770"></status>
+</kw>
+<status status="PASS" starttime="20200817 17:56:30.514" endtime="20200817 17:56:32.771"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>test done</arg>
+</arguments>
+<status status="PASS" starttime="20200817 17:56:32.773" endtime="20200817 17:56:32.774"></status>
+</kw>
+<status status="PASS" starttime="20200817 17:56:18.159" endtime="20200817 17:56:32.775" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200817 17:56:17.680" endtime="20200817 17:56:32.777"></status>
+</suite>
+<status status="PASS" starttime="20200817 17:56:17.675" endtime="20200817 17:56:32.783"></status>
+</suite>
+<status status="PASS" starttime="20200817 17:56:17.627" endtime="20200817 17:56:32.788"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="Robot-Framework-py3">Robot-Framework-py3</stat>
+<stat pass="1" fail="0" id="s1-s1" name="testData">Robot-Framework-py3.testData</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="homeTest">Robot-Framework-py3.testData.homeTest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
