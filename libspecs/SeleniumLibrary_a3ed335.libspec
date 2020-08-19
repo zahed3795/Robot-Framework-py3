@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<keywordspec name="SeleniumLibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" namedargs="true" generated="2020-08-17T04:47:41Z" specversion="2" source="C:\Python38\Lib\site-packages\SeleniumLibrary\__init__.py" lineno="52">
+<keywordspec name="SeleniumLibrary" type="LIBRARY" format="ROBOT" scope="GLOBAL" namedargs="true" generated="2020-08-18T04:59:19Z" specversion="2" source="C:\Python38\Lib\site-packages\SeleniumLibrary\__init__.py" lineno="52">
 <version>4.5.0</version>
 <scope>global</scope>
 <namedargs>yes</namedargs>
