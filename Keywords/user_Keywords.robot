@@ -25,8 +25,7 @@ Key Send keys
     Wait Until Element Is Enabled    ${locator}    
     Clear Element Text    ${locator}
     Input Text    ${locator}    ${text}     
-     
-    
+       
 Key Verify Title
     [Arguments]    ${title}
     ${realTitle}    Get Title

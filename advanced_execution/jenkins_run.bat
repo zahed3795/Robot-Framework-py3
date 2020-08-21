@@ -1,2 +1,2 @@
-cd C:\Program Files (x86)\Jenkins\workspace\demoRobot
-pabot --processes 2 --outputdir result Test_Cases\*.robot
+cd C:\Program Files (x86)\Jenkins\workspace\Robot-Framework-py3
+pabot --processes 2 --outputdir result testCases\*.robot

@@ -18,9 +18,14 @@ Test Teardown      Close Browser
 Suite Teardown    Log To Console    Test done 
 *** Test Cases ***  
 Untitled Test Case  
+    [Tags]    smoke    foundBug
     Key Verify Title    ${Tilte}
     User Log In
     #Key Get XML Value   URL 
+    
+Untitled Test Case2  
+    Key Verify Title    ${Tilte}
+    User Log In
      
     
   
