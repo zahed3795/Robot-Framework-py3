@@ -17,7 +17,15 @@ Key Click element
     [Arguments]    ${locator}
     Wait Until Element Is Visible    ${locator}
     Wait Until Element Is Enabled    ${locator}    
-    Click Element    ${locator}      
+    Click Element    ${locator}  
+    
+Key Send keys
+    [Arguments]    ${locator}     ${text} 
+    Wait Until Element Is Visible    ${locator}
+    Wait Until Element Is Enabled    ${locator}    
+    Clear Element Text    ${locator}
+    Input Text    ${locator}    ${text}     
+     
     
 Key Verify Title
     [Arguments]    ${title}
@@ -27,17 +35,8 @@ Key Verify Title
     Strip String    ${title} 
     Should Be Equal As Strings    ${realTitle}    ${title}    
     Title Should Be    ${title}    
-    
-    
-Key user name text 
-    [Arguments]    ${locator}    ${text}
-    Wait Until Element Is Visible    ${locator}   
-    Wait Until Element Is Enabled    ${locator}
-    Clear Element Text    ${locator}
-    Input Text    ${locator}    ${text}    
-    
 
-Key user send password 
+Key send password 
     [Arguments]    ${locator}    ${text}
     Wait Until Element Is Visible    ${locator}   
     Wait Until Element Is Enabled    ${locator}
