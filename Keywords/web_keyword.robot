@@ -17,8 +17,8 @@ Resource    ../locators/locators.robot
 
 *** Keywords ***
 User Log In       
-    ${user_name}    Key Get Username    username 
-    ${password}     Key Get Password    password
+    ${user_name}    Key Get XML Value    username 
+    ${password}     Key Get XML Value    password
     Key Click element    ${LOGIN}
     Key user name text        ${EMAIL_BOX}    ${user_name}
     Key user send password    ${PASSWORD_BOX}    ${password}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<keywordspec name="Telnet" type="LIBRARY" format="ROBOT" scope="SUITE" namedargs="true" generated="2020-08-17T04:45:07Z" specversion="2" source="C:\Python38\lib\site-packages\robot\libraries\Telnet.py" lineno="36">
+<keywordspec name="Telnet" type="LIBRARY" format="ROBOT" scope="SUITE" namedargs="true" generated="2020-08-20T06:49:22Z" specversion="2" source="C:\Users\zahed\AppData\Local\Programs\Python\Python38-32\lib\site-packages\robot\libraries\Telnet.py" lineno="36">
 <version>3.2.1</version>
 <scope>test suite</scope>
 <namedargs>yes</namedargs>

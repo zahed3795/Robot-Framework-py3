@@ -13,14 +13,15 @@ Resource   ../Keywords/user_Keywords.robot
 Resource    ../Keywords/web_Keyword.robot
 Resource    ../locators/locators.robot
 Suite Setup    Log To Console    Test Started  
-#Test Setup      key Launch driver 
-#Test Teardown      Close Browser
+Test Setup      key Launch driver 
+Test Teardown      Close Browser
 Suite Teardown    Log To Console    Test done 
 *** Test Cases ***  
 Untitled Test Case  
-    #Key Verify Title    ${Tilte}
-    #User Log In
-    Key Get XML Value    
+    Key Verify Title    ${Tilte}
+    User Log In
+    #Key Get XML Value   URL 
+     
     
   
     

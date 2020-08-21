@@ -45,40 +45,24 @@ Key user send password
     Input Password    ${locator}    ${text}  
 
 key Launch driver
-    ${browser}    Key Get Browser    browser
-    Run Keywords  Open Browser  ${URL}    ${browser}
+    ${browser}    Key Get XML Value    browser
+    Run Keywords  Open Browser  ${URL}    ${browser}    
     ...    AND    Maximize Browser Window
     ...    AND   Set Selenium Speed  ${SELSPEED}
     ...    AND     Delete All Cookies
-Key Get Browser 
-    [Arguments]    ${arg}
-    ${value}=    Parse Xml    ${xml}    
-    ${browser}    Get Element Text    ${value}    ${arg}
-    [Return]    ${browser}  
     
-Key Get Username 
+Key Get XML Value
     [Arguments]    ${arg}
-    ${value}=    Parse Xml    ${xml}    
-    ${username}    Get Element Text    ${value}    ${arg}
-    [Return]    ${username} 
-
-Key Get Password 
-    [Arguments]    ${arg}
+    ${value}=    Parse Xml    ${xml}   
+    FOR    ${value}    IN      @{value}    
+    &{dict}    Create Dictionary    ${value.tag}      ${value.text}
+    #Log To Console     ${dict}
+    END 
     ${value}=    Parse Xml    ${xml}    
     ${password}    Get Element Text    ${value}    ${arg}
     [Return]    ${password} 
     
-Key Get XML Value
-    ${value}=    Parse Xml    ${xml}   
-    FOR    ${value}    IN      @{value}    
-    ${dict}    Create Dictionary    ${value.tag}      ${value.text}
-    ${b}    Get Dictionary Values    ${dict}    browser  
-    Log To Console     ${b}
-    END 
-      
-    
-    #[Return]    ${value}
-
+   
     
     
 
