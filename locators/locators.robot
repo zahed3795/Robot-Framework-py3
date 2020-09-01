@@ -1,5 +1,5 @@
 *** Variables ***
-${LOGIN}    link=Login
+${LOGIN}            link=Login
 ${EMAIL_BOX}        xpath=//input[@name='email']
 ${PASSWORD_BOX}     xpath=//input[@name='password']
 ${LOGIN_BUTTON}     xpath=//input[@value='Log in']
