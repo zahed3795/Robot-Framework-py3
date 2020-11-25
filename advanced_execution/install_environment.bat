@@ -1,8 +1,13 @@
+@ECHO OFF
 pip install robotframework
 pip install robotframework-seleniumlibrary
 pip install robotframework-pabot
 pip install webdrivermanager
-webdrivermanager firefox chrome opera edge --linkpath C:\Users\zahed\AppData\Local\Programs\Python\Python38
 pip install robotframework-pabot
-pip install --upgrade robotframework-crypto
+pip install robotframework-crypto
+pip install robotframework-excal
+pip install robotframework-datadriver
+pip install robotframework-requests
+webdrivermanager firefox chrome opera edge --linkpath C:\Users\zahed\AppData\Local\Programs\Python\Python38
+
 

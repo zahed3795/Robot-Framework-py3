@@ -26,7 +26,7 @@ ${enc_user}=   crypt:nkpEPOVKfOko3t04XxOupA+F/ANTEuR9aQuPaPeMBGBQenwYf6UNESEl9MW
 ${enc_pwd}=    crypt:TVpamLXCtrzRsl8UAgD0YuoY+lSJNV73+bTYhOP51zM1GQihgyCvSZ2CoGoKsUHLFjokyJLHxFzPEB4=
 
 *** Test Cases ***
-Valid Logi                                #disable Robot Framework logging
+Valid Log                                #disable Robot Framework logging
     ${var}=    set Variable   ${secret}
     Log To Console  ${var}                               #enable Robot Framework logging
     ${user}=    Get Decrypted Text    ${enc_user}     #decrypts cipher text and returns plain text
