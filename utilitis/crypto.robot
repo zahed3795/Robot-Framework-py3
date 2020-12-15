@@ -21,7 +21,7 @@ Test Teardown      Close Browser
 Suite Teardown    Log To Console    Test done 
 
 *** Variables ***
-${secret}=     KILL ALL Democrats!!!
+${secret}=     Free!!!
 ${enc_user}=   crypt:nkpEPOVKfOko3t04XxOupA+F/ANTEuR9aQuPaPeMBGBQenwYf6UNESEl9MWRKGuj60ZWd10=
 ${enc_pwd}=    crypt:TVpamLXCtrzRsl8UAgD0YuoY+lSJNV73+bTYhOP51zM1GQihgyCvSZ2CoGoKsUHLFjokyJLHxFzPEB4=
 
