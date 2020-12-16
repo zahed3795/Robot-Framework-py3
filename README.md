@@ -40,6 +40,8 @@ Key Verify Title
 Key send password 
     [Arguments]    ${locator}    ${text}
 ```
+#### Use `python -m CryptoLibrary` and `python -m CryptoClient`
+for encryption 
 
 More read me will be added soon
 
