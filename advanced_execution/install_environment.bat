@@ -3,8 +3,6 @@ pip install robotframework
 pip install robotframework-seleniumlibrary
 pip install robotframework-pabot
 pip install webdrivermanager
-pip install robotframework-pabot
-pip install robotframework-crypto
 pip install robotframework-excal
 pip install robotframework-datadriver
 pip install robotframework-requests
