@@ -10,7 +10,7 @@ webdrivermanager firefox chrome opera edge --linkpath C:\Users\zahed\AppData\Loc
 cd..
 cd robotframework-crypto
 python setup.py install
-
+cd..
 
 
 

@@ -40,7 +40,8 @@ Key send password
     Wait Until Element Is Visible    ${locator}   
     Wait Until Element Is Enabled    ${locator}
     Clear Element Text    ${locator}
-    Input Password    ${locator}    ${text}  
+    Input Password    ${locator}    ${text}
+    Input Guild Encrypt Text    ${locator}    ${text}
 
 key Launch driver
     ${browser}    Key Get XML Value    browser
