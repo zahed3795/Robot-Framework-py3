@@ -24,6 +24,13 @@ User Log In
     Key send password     ${PASSWORD_BOX}    ${password}
     Key Click element    ${LOGIN_BUTTON}
 
+User Log In using Encrypt
+    ${user_name}    Key Get XML Value    username
+    ${password}     Key Get XML Value    password
+    Key Click element    ${LOGIN}
+    Key Send keys        ${EMAIL_BOX}    ${user_name}
+    Key send Encrypt password     ${PASSWORD_BOX}    ${password}
+    Key Click element    ${LOGIN_BUTTON}
 
 
 

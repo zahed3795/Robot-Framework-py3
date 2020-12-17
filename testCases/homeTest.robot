@@ -25,7 +25,7 @@ Untitled Test Case
     
 Untitled Test Case2  
     Key Verify Title    ${Tilte}
-    User Log In
+    User Log In using Encrypt
      
     
   

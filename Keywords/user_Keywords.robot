@@ -40,7 +40,13 @@ Key send password
     Wait Until Element Is Visible    ${locator}   
     Wait Until Element Is Enabled    ${locator}
     Clear Element Text    ${locator}
-    Input Password    ${locator}    ${text}
+    Input Text    ${locator}    ${text}
+
+Key send Encrypt password
+    [Arguments]    ${locator}    ${text}
+    Wait Until Element Is Visible    ${locator}
+    Wait Until Element Is Enabled    ${locator}
+    Clear Element Text    ${locator}
     Input Guild Encrypt Text    ${locator}    ${text}
 
 key Launch driver
