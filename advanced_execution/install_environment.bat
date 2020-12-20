@@ -1,6 +1,5 @@
 @ECHO OFF
 pip install robotframework
-pip install robotframework-seleniumlibrary
 pip install robotframework-pabot
 pip install webdrivermanager
 pip install robotframework-excal
@@ -12,6 +11,9 @@ cd robotframework
 cd robotframework-crypto
 python setup.py install
 cd..
-
+cd robotframework-selenium
+python setup.py install
+cd..
+cd..
 
 
