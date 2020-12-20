@@ -1,7 +1,5 @@
 robotframework
-robotframework-seleniumlibrary
 robotframework-pabot
 robotframework-excal
 robotframework-datadriver
 robotframework-requests
-robotframework-crypto

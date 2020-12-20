@@ -10,8 +10,9 @@ cd robotframework
 cd robotframework-crypto
 python setup.py install
 cd..
-cd robotframework-selenium
+cd SeleniumLibrary
 python setup.py install
+pip install -r requirements.txt
 cd..
 cd..
 
