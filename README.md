@@ -9,10 +9,8 @@
 git clone https://github.com/zahed3795/Robot-Framework-py3.git
 cd Robot-Framework-py3
 pip install robotframework
-pip install robotframework-seleniumlibrary
 pip install robotframework-pabot
 pip install webdrivermanager
-pip install robotframework-crypto
 pip install robotframework-excal
 pip install robotframework-datadriver
 pip install robotframework-requests
@@ -45,6 +43,8 @@ Key send Encrypt password
 ```
 #### Use `python -m CryptoLibrary` and `python -m CryptoClient`
 for encryption 
+
+### You can add your own selenium keywork from selenium 
 
 More read me will be added soon
 
