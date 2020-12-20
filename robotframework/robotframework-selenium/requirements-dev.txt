@@ -1,0 +1,24 @@
+# Requirements needed for SeleniumLibrary development but not by end users.
+# Creating releases has its own requirements listed in requirements-build.txt.
+invoke >= 1.4.1
+mockito >= 1.2.2
+robotstatuschecker >= 1.4
+approvaltests >= 0.2.4
+pytest >= 6.0.2
+pytest-mockito >= 0.0.4
+pytest-approvaltests >= 0.1.0
+requests >= 2.24.0
+robotframework-pabot >= 1.10.0
+black >= 20.8b1
+
+# Requirements needed when generating releases. See BUILD.rst for details.
+rellu >= 0.6
+twine >= 3.2.0
+wheel >= 0.35.1
+docutils >= 0.14
+pygments
+beautifulsoup4 >= 4.9.3
+
+# Include normal dependencies from requirements.txt. Makes it possible to use
+# requirements-dev.txt as a single requirement file in PyCharm and other IDEs.
+-r requirements.txt
