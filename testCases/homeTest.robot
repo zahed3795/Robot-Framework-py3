@@ -8,7 +8,8 @@ Library    Process
 Library    Screenshot    
 Library    String    
 Library    Telnet    
-Library    XML  
+Library    XML
+Library    BuiltIn
 Resource   ../Keywords/user_Keywords.robot
 Resource    ../Keywords/web_Keyword.robot
 Resource    ../locators/locators.robot
@@ -26,7 +27,8 @@ Untitled Test Case
 Untitled Test Case2  
     Key Verify Title    ${Tilte}
     User Log In using Encrypt
-     
-    
+
+costom Test Case
+    zahed_costom_keyword
   
     
