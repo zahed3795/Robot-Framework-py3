@@ -1,0 +1,15 @@
+sp = ' '
+hash = '#'
+bs = '\\'
+tab = '\t'
+nl = '\n'
+cr = '\r'
+x00 = '\x00'
+xE4 = u'\xE4'
+xFF = u'\xFF'
+u2603 = u'\u2603'  # SNOWMAN
+uFFFF = u'\uFFFF'
+U00010905 = u'\U00010905'  # PHOENICIAN LETTER WAU
+U0010FFFF = u'\U0010FFFF'  # Biggest valid Unicode character
+var = '${non_existing}'
+pipe = '|'
