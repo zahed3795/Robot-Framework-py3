@@ -14,6 +14,9 @@ cd SeleniumLibrary
 python setup.py install
 pip install -r requirements.txt
 cd..
+cd robotframework
+python setup.py install
+cd..
 cd..
 
 
