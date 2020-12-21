@@ -1,3 +1,0 @@
-*** Keywords ***
-Dyn
-    Log    goo

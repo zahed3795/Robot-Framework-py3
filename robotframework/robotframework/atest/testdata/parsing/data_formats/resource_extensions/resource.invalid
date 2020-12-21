@@ -1,6 +1,0 @@
-*** Settings ***
-ERROR            This file shouldn't be imported!
-
-*** Keywords ***
-Keyword in resource.invalid
-    Fail    This file shouldn't be imported!

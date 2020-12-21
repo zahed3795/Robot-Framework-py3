@@ -1,3 +1,0 @@
-*** Keywords ***
-Ploo
-    Log   ploo
