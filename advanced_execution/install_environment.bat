@@ -1,5 +1,4 @@
 @ECHO OFF
-pip install robotframework
 pip install robotframework-pabot
 pip install webdrivermanager
 pip install robotframework-datadriver
