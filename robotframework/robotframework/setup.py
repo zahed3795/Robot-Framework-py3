@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 from os.path import abspath, join, dirname
 from setuptools import find_packages, setup

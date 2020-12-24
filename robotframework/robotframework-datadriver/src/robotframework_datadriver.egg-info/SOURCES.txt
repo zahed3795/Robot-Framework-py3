@@ -1,0 +1,79 @@
+COPYRIGHT.txt
+LICENSE
+MANIFEST.in
+Readme.rst
+create_readme.py
+setup.py
+atest/run_atest.bat
+atest/run_atest.sh
+atest/TestCases/ConfigKeyword/config_keyword_generate_file.robot
+atest/TestCases/ConfigKeyword/custom_reader.robot
+atest/TestCases/DataTypes/Check_DataTypes.csv
+atest/TestCases/DataTypes/Check_DataTypes.robot
+atest/TestCases/DataTypes/Check_DataTypes_xlsx.robot
+atest/TestCases/DataTypes/Check_DataTypes_xlsx.xlsx
+atest/TestCases/DataTypes/LiteralEval.csv
+atest/TestCases/DataTypes/LiteralEval.robot
+atest/TestCases/DataTypes/Types_in_dicts.csv
+atest/TestCases/DataTypes/Types_in_dicts.robot
+atest/TestCases/Defaults/CSV/defaults.csv
+atest/TestCases/Defaults/CSV/defaults.robot
+atest/TestCases/Defaults/CSV/generic_csv_reader.csv
+atest/TestCases/Defaults/CSV/generic_csv_reader.robot
+atest/TestCases/Defaults/CSV/test_case_names.csv
+atest/TestCases/Defaults/CSV/test_case_names.robot
+atest/TestCases/Defaults/PICT/defaults_pict.pict
+atest/TestCases/Defaults/PICT/defaults_pict.robot
+atest/TestCases/Defaults/XLS/defaults_xls.robot
+atest/TestCases/Defaults/XLS/defaults_xls.xls
+atest/TestCases/Defaults/XLS/defaults_xlsx.robot
+atest/TestCases/Defaults/XLS/defaults_xlsx.xlsx
+atest/TestCases/csv_reader_config/reader_by_filename.robot
+atest/TestCases/csv_reader_config/reader_by_name.robot
+atest/TestCases/csv_reader_config/reader_by_path.robot
+atest/TestCases/csv_reader_config/tab-csv-file-name.tsv
+atest/TestCases/custom_reader/custom_reader.py
+atest/TestCases/custom_reader/custom_reader.robot
+atest/TestCases/custom_reader/custom_reader_local.robot
+atest/TestCases/custom_reader/dummy.txt
+atest/TestCases/custom_reader/file_search_strategy_none.robot
+atest/TestCases/custom_reader/with_path_and_file.robot
+atest/TestCases/performance/10.000.robot
+atest/TestCases/performance/10000.csv
+doc/DataDriver.html
+example/Login Tests/DataDriven.csv
+example/Login Tests/DataDriven.pict
+example/Login Tests/DataDriven.robot
+example/Login Tests/DataDriven.xls
+example/Login Tests/DataDriven.xlsx
+example/Login Tests/DataDriven_pict.robot
+example/Login Tests/DataDriven_regex.robot
+example/Login Tests/DataDriven_xls.robot
+example/Login Tests/DataDriven_xlsx.robot
+example/Login Tests/invalidLogins.robot
+example/Login Tests/login_resources.robot
+example/Login Tests/validTest.robot
+example/demo_web_server/server.py
+example/demo_web_server/html/demo.css
+example/demo_web_server/html/error.html
+example/demo_web_server/html/index.html
+example/demo_web_server/html/welcome.html
+src/DataDriver/AbstractReaderClass.py
+src/DataDriver/DataDriver.py
+src/DataDriver/ReaderConfig.py
+src/DataDriver/__init__.py
+src/DataDriver/argument_utils.py
+src/DataDriver/csv_reader.py
+src/DataDriver/generic_csv_reader.py
+src/DataDriver/json_reader.py
+src/DataDriver/pict_reader.py
+src/DataDriver/rerunfailed.py
+src/DataDriver/search.py
+src/DataDriver/utils.py
+src/DataDriver/xls_reader.py
+src/DataDriver/xlsx_reader.py
+src/robotframework_datadriver.egg-info/PKG-INFO
+src/robotframework_datadriver.egg-info/SOURCES.txt
+src/robotframework_datadriver.egg-info/dependency_links.txt
+src/robotframework_datadriver.egg-info/requires.txt
+src/robotframework_datadriver.egg-info/top_level.txt
