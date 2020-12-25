@@ -11,6 +11,7 @@ Library    String
 Library    Telnet    
 Library    XML
 Library    BuiltIn
+Library    DataDriver    file=DataDriven.xls
 Resource   ../robotframework/rfswarm/Robot_Resources/perftest.resource
 Resource   ../Keywords/user_Keywords.robot
 Resource    ../Keywords/web_Keyword.robot
@@ -19,20 +20,18 @@ Suite Setup    Log To Console    Test Started
 Test Setup      key Launch driver 
 Test Teardown      Close Browser
 Suite Teardown    Log To Console    Test done
+Test Template   User Log In Using XL
+*** Comments ***
+    Data driven test with xls files
 *** Test Cases ***  
-Untitled Test Case  
-    [Tags]    smoke    foundBug
-    Key Verify Title    ${Tilte}
-    User Log In
+Login with user '${userName}' and password '${password}' for finviz
     
-Untitled Test Case2  
-    Key Verify Title    ${Tilte}
-    User Log In using Encrypt
-
-costom Test Case
-    zahed_costom_keyword
-    Cover Element   xpath://a[contains(text(),'News')]
-    Key Click element   xpath://a[contains(text(),'News')]
-
+*** Keywords ***
+User Log In Using XL
+    [Arguments]        ${userName}        ${password}
+    Key Click element    ${LOGIN}
+    Key Send keys        ${EMAIL_BOX}    ${userName}
+    Key send password     ${PASSWORD_BOX}    ${password}
+    Key Click element    ${LOGIN_BUTTON}
   
     

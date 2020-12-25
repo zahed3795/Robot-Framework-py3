@@ -46,12 +46,4 @@ User Log In using Encrypt
     Standard Think Time
 
 
-User Log In Using XL
-    [Arguments]         ${password}
-    ${user_name}    Key Get XML Value    username
-    Key Click element    ${LOGIN}
-    Key Send keys        ${EMAIL_BOX}    ${user_name}
-    Key send password     ${PASSWORD_BOX}    ${password}
-    Key Click element    ${LOGIN_BUTTON}
-
 
