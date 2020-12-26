@@ -8,9 +8,9 @@
 ```bash
 git clone https://github.com/zahed3795/Robot-Framework-py3.git
 cd Robot-Framework-py3
+@ECHO OFF
 pip install robotframework-pabot
 pip install webdrivermanager
-pip install robotframework-excal
 pip install robotframework-datadriver
 pip install robotframework-requests
 webdrivermanager firefox chrome opera edge --linkpath C:\Users\zahed\AppData\Local\Programs\Python\Python38
@@ -26,7 +26,15 @@ cd..
 cd robotframework
 python setup.py install
 cd..
+cd rfswarm
+python setup-agent.py install
+python setup-gui.py install
 cd..
+cd robotframework-datadriver
+python setup.py install
+cd..
+cd..
+pip install -U robotframework-datadriver[XLS]
 ```
 
 Framework can download web-drivers 
