@@ -11,39 +11,32 @@ Library    Telnet
 Library    XML  
 Resource   user_Keywords.robot
 Resource    ../locators/locators.robot
-Resource   ../robotframework/rfswarm/Robot_Resources/perftest.resource
 Library    DataDriver    file=DataDriven.xls
 
 
 *** Keywords ***
 User Log In
-    Standard Think Time
+    Key Standard Think Time
     ${user_name}    Key Get XML Value    username
-    Standard Think Time
+    Key Standard Think Time
     ${password}     Key Get XML Value    password
-    Standard Think Time
+    Key Standard Think Time
     Key Click element    ${LOGIN}
-    Standard Think Time
+    Key Standard Think Time
     Key Send keys        ${EMAIL_BOX}    ${user_name}
-    Standard Think Time
+    Key Standard Think Time
     Key send password     ${PASSWORD_BOX}    ${password}
-    Standard Think Time
+    Key Standard Think Time
     Key Click element    ${LOGIN_BUTTON}
-    Standard Think Time
+    Key Standard Think Time
 
 User Log In using Encrypt
     ${user_name}    Key Get XML Value    username
-    Standard Think Time
     ${password}     Key Get XML Value    password
-    Standard Think Time
     Key Click element    ${LOGIN}
-    Standard Think Time
     Key Send keys        ${EMAIL_BOX}    ${user_name}
-    Standard Think Time
     Key send Encrypt password     ${PASSWORD_BOX}    ${password}
-    Standard Think Time
     Key Click element    ${LOGIN_BUTTON}
-    Standard Think Time
 
 
 

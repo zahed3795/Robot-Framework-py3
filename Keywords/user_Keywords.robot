@@ -7,7 +7,7 @@ Library    OperatingSystem
 Library    Process    
 Library    Screenshot    
 Library    String    
-Library    Telnet    
+Library    Telnet
 Library    XML    
 Resource    ../locators/locators.robot
 Resource    ../Keywords/user_Keywords.robot
@@ -66,8 +66,11 @@ Key Get XML Value
     ${value}=    Parse Xml    ${xml}    
     ${password}    Get Element Text    ${value}    ${arg}
     [Return]    ${password} 
-    
-   
+
+Key Standard Think Time
+	${number}    Evaluate    random.randint(3, 20)    random
+	Log      Standard Think Time (${number})
+	Sleep    ${number}
     
     
 

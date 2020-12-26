@@ -61,6 +61,9 @@ Key send password
     
 Key send Encrypt password 
     [Arguments]    ${locator}    ${text}
+    
+Key Standard Think Time
+# This keyword think like an human
 ```
 #### Use `python -m CryptoLibrary` and `python -m CryptoClient`
 for encryption 
