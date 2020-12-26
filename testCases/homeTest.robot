@@ -11,7 +11,6 @@ Library    String
 Library    Telnet    
 Library    XML
 Library    BuiltIn
-Resource   ../robotframework/rfswarm/Robot_Resources/perftest.resource
 Resource   ../Keywords/user_Keywords.robot
 Resource    ../Keywords/web_Keyword.robot
 Resource    ../locators/locators.robot
