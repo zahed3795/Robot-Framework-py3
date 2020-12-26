@@ -1,5 +1,2 @@
-robotframework
 robotframework-pabot
-robotframework-excal
-robotframework-datadriver
 robotframework-requests
