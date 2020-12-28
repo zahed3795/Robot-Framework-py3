@@ -1,6 +1,5 @@
 *** Settings ***
 Library    SeleniumLibrary    plugins=CryptoLibrary.Plugin
-Library    DataDriver    DataDriven.xls
 Library    Collections    
 Library    DateTime    
 Library    Dialogs    
@@ -29,9 +28,11 @@ Untitled Test Case2
     User Log In using Encrypt
 
 costom Test Case
-    zahed_costom_keyword
+    Zahed Costom Keyword
     Cover Element   xpath://a[contains(text(),'News')]
 
+Example of running a python script
+    ${result}=  run process      python   gui_test_runner.py
+    log to console  ${result}
 
-  
     
