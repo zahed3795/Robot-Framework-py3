@@ -31,7 +31,7 @@ Untitled Test Case2
 costom Test Case
     zahed_costom_keyword
     Cover Element   xpath://a[contains(text(),'News')]
-    Key Click element   xpath://a[contains(text(),'News')]
+
 
   
     
