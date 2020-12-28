@@ -16,19 +16,15 @@ Library    DataDriver    file=DataDriven.xls
 
 *** Keywords ***
 User Log In
-    Key Standard Think Time
     ${user_name}    Key Get XML Value    username
     Key Standard Think Time
     ${password}     Key Get XML Value    password
-    Key Standard Think Time
     Key Click element    ${LOGIN}
     Key Standard Think Time
     Key Send keys        ${EMAIL_BOX}    ${user_name}
-    Key Standard Think Time
     Key send password     ${PASSWORD_BOX}    ${password}
     Key Standard Think Time
     Key Click element    ${LOGIN_BUTTON}
-    Key Standard Think Time
 
 User Log In using Encrypt
     ${user_name}    Key Get XML Value    username
