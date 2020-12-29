@@ -1,0 +1,34 @@
+include *.in
+include *.txt
+include *.rst
+include LICENSE
+recursive-include doc *.html
+recursive-include example *.css
+recursive-include example *.csv
+recursive-include example *.html
+recursive-include example *.pict
+recursive-include example *.pictout
+recursive-include example *.py
+recursive-include example *.robot
+recursive-include example *.xlsx
+
+# added by check_manifest.py
+recursive-include example *.xls
+
+# added by check_manifest.py
+recursive-include atest *.bat
+recursive-include atest *.csv
+recursive-include atest *.pict
+recursive-include atest *.pictout
+recursive-include atest *.py
+recursive-include atest *.robot
+recursive-include atest *.tsv
+recursive-include atest *.xls
+recursive-include atest *.xlsx
+
+# added by check_manifest.py
+include *.py
+
+# added by check_manifest.py
+recursive-include atest *.sh
+recursive-include atest *.txt
