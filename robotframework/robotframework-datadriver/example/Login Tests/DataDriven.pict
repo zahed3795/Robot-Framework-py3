@@ -1,4 +1,0 @@
-username:  demo, mode, Foobar, ${EMPTY}
-password:  demo, mode, Foobar, ${EMPTY}
-
-IF [username] = "demo"   THEN [password] <> "mode";
