@@ -31,45 +31,45 @@ from .gatherfailed import gather_failed_tests, gather_failed_suites
 
 @py3to2
 class _BaseSettings(object):
-    _cli_opts = {'RPA'              : ('rpa', None),
-                 'Name'             : ('name', None),
-                 'Doc'              : ('doc', None),
-                 'Metadata'         : ('metadata', []),
-                 'TestNames'        : ('test', []),
-                 'TaskNames'        : ('task', []),
-                 'ReRunFailed'      : ('rerunfailed', 'NONE'),
+    _cli_opts = {'RPA': ('rpa', None),
+                 'Name': ('name', None),
+                 'Doc': ('doc', None),
+                 'Metadata': ('metadata', []),
+                 'TestNames': ('test', []),
+                 'TaskNames': ('task', []),
+                 'ReRunFailed': ('rerunfailed', 'NONE'),
                  'ReRunFailedSuites': ('rerunfailedsuites', 'NONE'),
-                 'SuiteNames'       : ('suite', []),
-                 'SetTag'           : ('settag', []),
-                 'Include'          : ('include', []),
-                 'Exclude'          : ('exclude', []),
-                 'Critical'         : ('critical', None),
-                 'NonCritical'      : ('noncritical', None),
-                 'OutputDir'        : ('outputdir', abspath('.')),
-                 'Log'              : ('log', 'log.html'),
-                 'Report'           : ('report', 'report.html'),
-                 'XUnit'            : ('xunit', None),
-                 'SplitLog'         : ('splitlog', False),
-                 'TimestampOutputs' : ('timestampoutputs', False),
-                 'LogTitle'         : ('logtitle', None),
-                 'ReportTitle'      : ('reporttitle', None),
-                 'ReportBackground' : ('reportbackground',
-                                       ('#9e9', '#f66', '#fed84f')),
-                 'SuiteStatLevel'   : ('suitestatlevel', -1),
-                 'TagStatInclude'   : ('tagstatinclude', []),
-                 'TagStatExclude'   : ('tagstatexclude', []),
-                 'TagStatCombine'   : ('tagstatcombine', []),
-                 'TagDoc'           : ('tagdoc', []),
-                 'TagStatLink'      : ('tagstatlink', []),
-                 'RemoveKeywords'   : ('removekeywords', []),
-                 'ExpandKeywords'   : ('expandkeywords', []),
-                 'FlattenKeywords'  : ('flattenkeywords', []),
+                 'SuiteNames': ('suite', []),
+                 'SetTag': ('settag', []),
+                 'Include': ('include', []),
+                 'Exclude': ('exclude', []),
+                 'Critical': ('critical', None),
+                 'NonCritical': ('noncritical', None),
+                 'OutputDir': ('outputdir', abspath('.')),
+                 'Log': ('log', 'guild_test_log.html'),
+                 'Report': ('report', 'guild_test_report.html'),
+                 'XUnit': ('xunit', None),
+                 'SplitLog': ('splitlog', False),
+                 'TimestampOutputs': ('timestampoutputs', False),
+                 'LogTitle': ('logtitle', None),
+                 'ReportTitle': ('reporttitle', None),
+                 'ReportBackground': ('reportbackground',
+                                      ('#99eeae', '#ff1a1a', '#cdfe4f')),
+                 'SuiteStatLevel': ('suitestatlevel', -1),
+                 'TagStatInclude': ('tagstatinclude', []),
+                 'TagStatExclude': ('tagstatexclude', []),
+                 'TagStatCombine': ('tagstatcombine', []),
+                 'TagDoc': ('tagdoc', []),
+                 'TagStatLink': ('tagstatlink', []),
+                 'RemoveKeywords': ('removekeywords', []),
+                 'ExpandKeywords': ('expandkeywords', []),
+                 'FlattenKeywords': ('flattenkeywords', []),
                  'PreRebotModifiers': ('prerebotmodifier', []),
-                 'StatusRC'         : ('statusrc', True),
-                 'ConsoleColors'    : ('consolecolors', 'AUTO'),
-                 'StdOut'           : ('stdout', None),
-                 'StdErr'           : ('stderr', None),
-                 'XUnitSkipNonCritical' : ('xunitskipnoncritical', False)}
+                 'StatusRC': ('statusrc', True),
+                 'ConsoleColors': ('consolecolors', 'AUTO'),
+                 'StdOut': ('stdout', None),
+                 'StdErr': ('stderr', None),
+                 'XUnitSkipNonCritical': ('xunitskipnoncritical', False)}
     _output_opts = ['Output', 'Log', 'Report', 'XUnit', 'DebugFile']
 
     def __init__(self, options=None, **extra_options):
@@ -387,35 +387,35 @@ class _BaseSettings(object):
 
 
 class RobotSettings(_BaseSettings):
-    _extra_cli_opts = {'Extension'          : ('extension', ('robot',)),
-                       'Output'             : ('output', 'output.xml'),
-                       'LogLevel'           : ('loglevel', 'INFO'),
-                       'MaxErrorLines'      : ('maxerrorlines', 40),
-                       'DryRun'             : ('dryrun', False),
-                       'ExitOnFailure'      : ('exitonfailure', False),
-                       'ExitOnError'        : ('exitonerror', False),
-                       'Skip'               : ('skip', None),
-                       'SkipOnFailure'      : ('skiponfailure', None),
-                       'SkipTeardownOnExit' : ('skipteardownonexit', False),
-                       'Randomize'          : ('randomize', 'NONE'),
-                       'RunEmptySuite'      : ('runemptysuite', False),
-                       'Variables'          : ('variable', []),
-                       'VariableFiles'      : ('variablefile', []),
-                       'PreRunModifiers'    : ('prerunmodifier', []),
-                       'Listeners'          : ('listener', []),
-                       'ConsoleType'        : ('console', 'verbose'),
-                       'ConsoleTypeDotted'  : ('dotted', False),
-                       'ConsoleTypeQuiet'   : ('quiet', False),
-                       'ConsoleWidth'       : ('consolewidth', 78),
-                       'ConsoleMarkers'     : ('consolemarkers', 'AUTO'),
-                       'DebugFile'          : ('debugfile', None)}
+    _extra_cli_opts = {'Extension': ('extension', ('robot',)),
+                       'Output': ('output', 'guild_test_output.xml'),
+                       'LogLevel': ('loglevel', 'INFO'),
+                       'MaxErrorLines': ('maxerrorlines', 40),
+                       'DryRun': ('dryrun', False),
+                       'ExitOnFailure': ('exitonfailure', False),
+                       'ExitOnError': ('exitonerror', False),
+                       'Skip': ('skip', None),
+                       'SkipOnFailure': ('skiponfailure', None),
+                       'SkipTeardownOnExit': ('skipteardownonexit', False),
+                       'Randomize': ('randomize', 'NONE'),
+                       'RunEmptySuite': ('runemptysuite', False),
+                       'Variables': ('variable', []),
+                       'VariableFiles': ('variablefile', []),
+                       'PreRunModifiers': ('prerunmodifier', []),
+                       'Listeners': ('listener', []),
+                       'ConsoleType': ('console', 'verbose'),
+                       'ConsoleTypeDotted': ('dotted', False),
+                       'ConsoleTypeQuiet': ('quiet', False),
+                       'ConsoleWidth': ('consolewidth', 78),
+                       'ConsoleMarkers': ('consolemarkers', 'AUTO'),
+                       'DebugFile': ('debugfile', None)}
 
     def get_rebot_settings(self):
         settings = RebotSettings()
         settings.start_timestamp = self.start_timestamp
         settings._opts.update(self._opts)
         for name in ['Variables', 'VariableFiles', 'Listeners']:
-            del(settings._opts[name])
+            del (settings._opts[name])
         for name in ['Include', 'Exclude', 'TestNames', 'SuiteNames', 'Metadata']:
             settings._opts[name] = []
         for name in ['Name', 'Doc']:
@@ -496,12 +496,12 @@ class RobotSettings(_BaseSettings):
     @property
     def console_output_config(self):
         return {
-            'type':    self.console_type,
-            'width':   self.console_width,
-            'colors':  self.console_colors,
+            'type': self.console_type,
+            'width': self.console_width,
+            'colors': self.console_colors,
             'markers': self.console_markers,
-            'stdout':  self['StdOut'],
-            'stderr':  self['StdErr']
+            'stdout': self['StdOut'],
+            'stderr': self['StdErr']
         }
 
     @property
@@ -546,12 +546,12 @@ class RobotSettings(_BaseSettings):
 
 
 class RebotSettings(_BaseSettings):
-    _extra_cli_opts = {'Output'            : ('output', None),
-                       'LogLevel'          : ('loglevel', 'TRACE'),
-                       'ProcessEmptySuite' : ('processemptysuite', False),
-                       'StartTime'         : ('starttime', None),
-                       'EndTime'           : ('endtime', None),
-                       'Merge'             : ('merge', False)}
+    _extra_cli_opts = {'Output': ('output', None),
+                       'LogLevel': ('loglevel', 'TRACE'),
+                       'ProcessEmptySuite': ('processemptysuite', False),
+                       'StartTime': ('starttime', None),
+                       'EndTime': ('endtime', None),
+                       'Merge': ('merge', False)}
 
     def _output_disabled(self):
         return False
@@ -594,7 +594,7 @@ class RebotSettings(_BaseSettings):
             'rpa': self.rpa,
             'title': html_escape(self['ReportTitle'] or ''),
             'logURL': self._url_from_path(self.report, self.log),
-            'background' : self._resolve_background_colors()
+            'background': self._resolve_background_colors()
         }
 
     def _url_from_path(self, source, destination):
@@ -613,9 +613,9 @@ class RebotSettings(_BaseSettings):
     @property
     def console_output_config(self):
         return {
-            'colors':  self.console_colors,
-            'stdout':  self['StdOut'],
-            'stderr':  self['StdErr']
+            'colors': self.console_colors,
+            'stdout': self['StdOut'],
+            'stderr': self['StdErr']
         }
 
     @property
