@@ -58,13 +58,9 @@ key Launch driver
     
 Key Get XML Value
     [Arguments]    ${arg}
-    ${value}=    Parse Xml    ${xml}   
-    FOR    ${value}    IN      @{value}    
-    &{dict}    Create Dictionary    ${value.tag}      ${value.text}
-    #Log To Console     ${dict}
-    END 
     ${value}=    Parse Xml    ${xml}    
     ${password}    Get Element Text    ${value}    ${arg}
+    Log To Console  ${password}
     [Return]    ${password} 
 
 Key Standard Think Time
