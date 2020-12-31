@@ -23,5 +23,13 @@ cd..
 cd robotframework-datadriver
 python setup.py install
 cd..
+cd pabot
+python setup.py install
+pip install -r requirements.txt
+cd..
+cd robotframework-requests
+python setup.py install
+pip install -r requirements.txt
+cd..
 cd..
 pip install -U robotframework-datadriver[XLS]
