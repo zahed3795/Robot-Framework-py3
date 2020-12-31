@@ -9,10 +9,7 @@
 git clone https://github.com/zahed3795/Robot-Framework-py3.git
 cd Robot-Framework-py3
 @ECHO OFF
-pip install robotframework-pabot
 pip install webdrivermanager
-pip install robotframework-datadriver
-pip install robotframework-requests
 webdrivermanager firefox chrome opera edge --linkpath C:\Users\zahed\AppData\Local\Programs\Python\Python38
 cd..
 cd robotframework
@@ -32,6 +29,14 @@ python setup-gui.py install
 cd..
 cd robotframework-datadriver
 python setup.py install
+cd..
+cd pabot
+python setup.py install
+pip install -r requirements.txt
+cd..
+cd robotframework-requests
+python setup.py install
+pip install -r requirements.txt
 cd..
 cd..
 pip install -U robotframework-datadriver[XLS]
