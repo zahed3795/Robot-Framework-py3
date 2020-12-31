@@ -1,0 +1,15 @@
+[MyValueSet]
+key = someval
+commonval = false
+
+[TestSystemWithLasers]
+tags = laser,commontag
+key = someval
+noise = zapp
+commonval = true
+
+[TestSystemWithTachyonCannon]
+tags = tachyon,commontag
+key = someval
+noise = zump
+commonval = true
