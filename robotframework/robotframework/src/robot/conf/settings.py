@@ -54,7 +54,7 @@ class _BaseSettings(object):
                  'LogTitle': ('logtitle', None),
                  'ReportTitle': ('reporttitle', None),
                  'ReportBackground': ('reportbackground',
-                                      ('#99eeae', '#ff1a1a', '#cdfe4f')),
+                                      ('#99eeae', '#8c1aff', '#cdfe4f')),
                  'SuiteStatLevel': ('suitestatlevel', -1),
                  'TagStatInclude': ('tagstatinclude', []),
                  'TagStatExclude': ('tagstatexclude', []),
