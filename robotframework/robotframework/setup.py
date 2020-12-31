@@ -3,7 +3,6 @@
 from os.path import abspath, join, dirname
 from setuptools import find_packages, setup
 
-
 # Version number typically updated by running `invoke set-version <version>`.
 # Run `invoke --help set-version` or see tasks.py for details.
 VERSION = '4.0b2.dev1'
@@ -45,24 +44,24 @@ PACKAGE_DATA = [join('htmldata', directory, pattern)
                 for directory in ('rebot', 'libdoc', 'testdoc', 'lib', 'common')
                 for pattern in ('*.html', '*.css', '*.js')]
 
-
 setup(
-    name         = 'robotframework',
-    version      = VERSION,
-    author       = u'Pekka Kl\xe4rck',
-    author_email = 'peke@eliga.fi',
-    url          = 'http://robotframework.org',
-    download_url = 'https://pypi.python.org/pypi/robotframework',
-    license      = 'Apache License 2.0',
-    description  = DESCRIPTION,
-    long_description = LONG_DESCRIPTION,
-    long_description_content_type = 'text/x-rst',
-    keywords     = KEYWORDS,
-    platforms    = 'any',
-    classifiers  = CLASSIFIERS,
-    package_dir  = {'': 'src'},
-    package_data = {'robot': PACKAGE_DATA},
-    packages     = find_packages('src'),
-    entry_points = {'console_scripts': ['robot = robot.run:run_cli',
-                                        'rebot = robot.rebot:rebot_cli']}
+    name='robotframework',
+    version=VERSION,
+    author=u'Pekka Kl\xe4rck',
+    author_email='peke@eliga.fi',
+    url='http://robotframework.org',
+    download_url='https://pypi.python.org/pypi/robotframework',
+    license='Apache License 2.0',
+    description=DESCRIPTION,
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/x-rst',
+    keywords=KEYWORDS,
+    platforms='any',
+    classifiers=CLASSIFIERS,
+    package_dir={'': 'src'},
+    package_data={'robot': PACKAGE_DATA},
+    packages=find_packages('src'),
+    entry_points={'console_scripts': ['robot = robot.run:run_cli',
+                                      'guild = robot.run:run_cli',
+                                      'rebot = robot.rebot:rebot_cli']}
 )
