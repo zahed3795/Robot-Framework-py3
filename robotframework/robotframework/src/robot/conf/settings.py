@@ -46,8 +46,8 @@ class _BaseSettings(object):
                  'Critical': ('critical', None),
                  'NonCritical': ('noncritical', None),
                  'OutputDir': ('outputdir', abspath('.')),
-                 'Log': ('log', 'guild_test_log.html'),
-                 'Report': ('report', 'guild_test_report.html'),
+                 'Log': ('log', 'log.html'),
+                 'Report': ('report', 'report.html'),
                  'XUnit': ('xunit', None),
                  'SplitLog': ('splitlog', False),
                  'TimestampOutputs': ('timestampoutputs', False),
@@ -388,7 +388,7 @@ class _BaseSettings(object):
 
 class RobotSettings(_BaseSettings):
     _extra_cli_opts = {'Extension': ('extension', ('robot',)),
-                       'Output': ('output', 'guild_test_output.xml'),
+                       'Output': ('output', 'output.xml'),
                        'LogLevel': ('loglevel', 'INFO'),
                        'MaxErrorLines': ('maxerrorlines', 40),
                        'DryRun': ('dryrun', False),
