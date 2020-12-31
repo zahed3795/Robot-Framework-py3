@@ -1,2 +1,0 @@
-robotframework-pabot
-robotframework-requests
