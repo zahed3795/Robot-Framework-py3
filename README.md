@@ -18,7 +18,6 @@ python setup.py install
 cd..
 cd SeleniumLibrary
 python setup.py install
-pip install -r requirements.txt
 cd..
 cd robotframework
 python setup.py install
@@ -32,14 +31,13 @@ python setup.py install
 cd..
 cd pabot
 python setup.py install
-pip install -r requirements.txt
 cd..
 cd robotframework-requests
 python setup.py install
-pip install -r requirements.txt
 cd..
 cd..
 pip install -U robotframework-datadriver[XLS]
+
 ```
 
 Framework can download web-drivers 
@@ -73,7 +71,7 @@ Key Standard Think Time
 #### Use `python -m CryptoLibrary` and `python -m CryptoClient`
 for encryption 
 
-### You can add your own selenium keywork from selenium 
+### You can add your own selenium keyword from selenium 
 
 More read me will be added soon
 
