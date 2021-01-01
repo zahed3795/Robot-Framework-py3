@@ -19,6 +19,5 @@ Suite Teardown    Log To Console    Test done
 *** Test Cases ***
 Example of running a python script
     ${result}=  run process      python   gui_test_runner.py
-    log to console  ${result}
 
 
