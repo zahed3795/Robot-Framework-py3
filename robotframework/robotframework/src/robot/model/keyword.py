@@ -30,21 +30,21 @@ class Keyword(ModelObject):
     """
     __slots__ = ['_name', 'doc', 'args', 'assign', 'timeout', 'type',
                  '_teardown', '_sort_key', '_next_child_sort_key']
-    KEYWORD_TYPE  = 'kw'
-    SETUP_TYPE    = 'setup'
+    KEYWORD_TYPE = 'kw'
+    SETUP_TYPE = 'setup'
     TEARDOWN_TYPE = 'teardown'
     FOR_LOOP_TYPE = 'for'
     FOR_ITEM_TYPE = 'foritem'
-    IF_TYPE       = 'if'
-    ELSE_IF_TYPE  = 'elseif'
-    ELSE_TYPE     = 'else'
+    IF_TYPE = 'if'
+    ELSE_IF_TYPE = 'elseif'
+    ELSE_TYPE = 'else'
 
     def __init__(self, name='', doc='', args=(), assign=(), tags=(),
                  timeout=None, type=KEYWORD_TYPE, parent=None):
         self.parent = parent
         self._name = name
         self.doc = doc
-        self.args = args      #: Keyword arguments as a list of strings.
+        self.args = args  #: Keyword arguments as a list of strings.
         self.assign = assign  #: Assigned variables as a list of strings.
         self.tags = tags
         self.timeout = timeout
@@ -74,7 +74,7 @@ class Keyword(ModelObject):
 
     @teardown.setter
     def teardown(self, td):
-        self._teardown = create_fixture(td, self,type=self.TEARDOWN_TYPE)
+        self._teardown = create_fixture(td, self, type=self.TEARDOWN_TYPE)
 
     @setter
     def parent(self, parent):
@@ -103,9 +103,9 @@ class Keyword(ModelObject):
         if not self.parent:
             return 'k1'
         if self.parent.keywords:
-            return '%s-k%d' % (self.parent.id, self.parent.keywords.index(self)+1)
+            return '%s-k%d' % (self.parent.id, self.parent.keywords.index(self) + 1)
         fixtures = [kw for kw in (self.parent.setup, self.parent.teardown) if kw]
-        return '%s-k%d' % (self.parent.id, fixtures.index(self)+1)
+        return '%s-k%d' % (self.parent.id, fixtures.index(self) + 1)
 
     @property
     def source(self):

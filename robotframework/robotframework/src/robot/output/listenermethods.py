@@ -102,8 +102,6 @@ class ListenerMethod(object):
             ListenerMethod.called = True
             self.method(*args)
         except TimeoutError:
-            # Propagate possible timeouts:
-            # https://github.com/robotframework/robotframework/issues/2763
             raise
         except:
             message, details = get_error_details()

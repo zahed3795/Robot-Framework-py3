@@ -20,7 +20,6 @@ from robot.utils import get_error_details, unic
 
 from . import librarylogger
 
-
 LEVELS = {'TRACE': logging.NOTSET,
           'DEBUG': logging.DEBUG,
           'INFO': logging.INFO,
@@ -68,7 +67,7 @@ class RobotHandler(logging.Handler):
             return record.getMessage(), None
         except:
             message = 'Failed to log following message properly: %s' \
-                        % unic(record.msg)
+                      % unic(record.msg)
             error = '\n'.join(get_error_details())
             return message, error
 
