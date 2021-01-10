@@ -15,14 +15,10 @@ Resource    ../Keywords/web_Keyword.robot
 *** Keywords ***
 Key Click element
     [Arguments]    ${locator}
-    Wait Until Element Is Visible    ${locator}
-    Wait Until Element Is Enabled    ${locator}    
     Click Element    ${locator}  
     
 Key Send keys
-    [Arguments]    ${locator}     ${text} 
-    Wait Until Element Is Visible    ${locator}
-    Wait Until Element Is Enabled    ${locator}    
+    [Arguments]    ${locator}     ${text}
     Clear Element Text    ${locator}
     Input Text    ${locator}    ${text}     
        
@@ -37,15 +33,11 @@ Key Verify Title
 
 Key send password 
     [Arguments]    ${locator}    ${text}
-    Wait Until Element Is Visible    ${locator}   
-    Wait Until Element Is Enabled    ${locator}
     Clear Element Text    ${locator}
     Input Text    ${locator}    Charlie3795@
 
 Key send Encrypt password
     [Arguments]    ${locator}    ${text}
-    Wait Until Element Is Visible    ${locator}
-    Wait Until Element Is Enabled    ${locator}
     Clear Element Text    ${locator}
     Input Guild Encrypt Text    ${locator}    ${text}
 
