@@ -19,12 +19,10 @@ User Log In
     ${user_name}    Key Get XML Value    username
     Key Standard Think Time
     ${password}     Key Get XML Value    password
-    Key Click element    ${LOGIN}
-    Key Standard Think Time
+    Click Element    ${LOGIN}
     Key Send keys        ${EMAIL_BOX}    ${user_name}
     Key send password     ${PASSWORD_BOX}    ${password}
-    Key Standard Think Time
-    Key Click element    ${LOGIN_BUTTON}
+    Click Element    ${LOGIN_BUTTON}
 
 User Log In using Encrypt
     ${user_name}    Key Get XML Value    username
