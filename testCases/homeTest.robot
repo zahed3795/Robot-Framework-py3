@@ -27,7 +27,3 @@ Untitled Test Case2
     Key Verify Title    ${Tilte}
     User Log In using Encrypt
 
-costom Test Case
-    Zahed Costom Keyword
-    Cover Element   xpath://a[contains(text(),'News')]
-
