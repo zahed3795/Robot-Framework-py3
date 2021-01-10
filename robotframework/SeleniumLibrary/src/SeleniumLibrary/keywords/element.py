@@ -13,9 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import time
 from collections import namedtuple
 from typing import List, Optional, Tuple, Union
-
+from selenium.common.exceptions import (StaleElementReferenceException,
+                                        MoveTargetOutOfBoundsException,
+                                        WebDriverException)
 from SeleniumLibrary.utils import is_noney
 from SeleniumLibrary.utils.events.event import _unwrap_eventfiring_element
 from robot.utils import plural_or_not, is_truthy
@@ -35,6 +38,8 @@ class ElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         return self.find_element(locator)
 
     @keyword(name="Get WebElements")
@@ -48,6 +53,8 @@ class ElementKeywords(LibraryComponent):
         list if there are no matching elements. In previous releases, the
         keyword failed in this case.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         return self.find_elements(locator)
 
     @keyword
@@ -109,6 +116,8 @@ class ElementKeywords(LibraryComponent):
 
         ``ignore_case`` argument new in SeleniumLibrary 3.1.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         actual = self.find_element(locator).text
         expected_before = expected
         if ignore_case:
@@ -227,7 +236,7 @@ class ElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.page_should_contain_element(locator)
+        self._wait_for_ready_stage()
         if not self.is_element_enabled(locator):
             raise AssertionError(f"Element '{locator}' is disabled.")
 
@@ -240,6 +249,8 @@ class ElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.0.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         element = self.find_element(locator)
         focused = self.driver.switch_to.active_element
         # Selenium 3.6.0 with Firefox return dict which contains the selenium WebElement
@@ -312,6 +323,7 @@ class ElementKeywords(LibraryComponent):
         Use `Element Should Contain` if a substring match is desired.
         """
         self.info(f"Verifying element '{locator}' contains exact text '{expected}'.")
+        self._wait_for_ready_stage(locator)
         text = before_text = self.find_element(locator).text
         if ignore_case:
             text = text.lower()
@@ -426,6 +438,7 @@ class ElementKeywords(LibraryComponent):
         Example:
         | ${width} | ${height} = | `Get Element Size` | css:div#container |
         """
+        self._wait_for_ready_stage(locator)
         element = self.find_element(locator)
         return element.size["width"], element.size["height"]
 
@@ -441,6 +454,7 @@ class ElementKeywords(LibraryComponent):
         Example:
         |`Cover Element` | css:div#container |
         """
+        self._wait_for_ready_stage(locator)
         elements = self.find_elements(locator)
         if not elements:
             raise ElementNotFound(f"No element with locator '{locator}' found.")
@@ -468,33 +482,66 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        try:
+            ElementKeywords.element_should_be_enabled(locator)
+            ElementKeywords.element_should_be_visible(locator)
+        except:
+            print(str(locator) + 'not found')
         return self.get_element_attribute(locator, "value")
 
     @keyword
-    def get_text(self, locator: str) -> str:
+    def get_text(self, locator: str, timeout=None) -> str:
         """Returns the text value of the element identified by ``locator``.
 
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.page_should_contain_element(locator)
-        self.element_should_be_visible(locator)
-        self.element_should_be_enabled(locator)
-        self.scroll_element_into_view(locator)
-        return self.find_element(locator).text
+        if not timeout:
+            timeout = .25
+        element = self.find_element(locator)
+        element.text()
+        try:
+            self.timeout()
+            self.clear_element_text(locator)
+            element.text()
+        except (StaleElementReferenceException,
+                MoveTargetOutOfBoundsException,
+                WebDriverException):
+            self.timeout()
+            self._wait_for_ready_stage(locator)
+            self.clear_element_text(locator)
+            element.text()
+        return element.text()
 
     @keyword
     def clear_element_text(self, locator: str):
-        """Clears the value of the text-input-element identified by ``locator``.
-
-        See the `Locating elements` section for details about the locator
-        syntax.
+        """ This method clears an element's text field.
+            A clear() is already included with most methods that type text,
+            such as self.type(), self.update_text(), etc.
+            Does not use Demo Mode highlights, mainly because we expect
+            that some users will be calling an unnecessary clear() before
+            calling a method that already includes clear() as part of it.
+            In case websites trigger an autofill after clearing a field,
+            add backspaces to make sure autofill doesn't undo the clear.
+            @Params
+            selector - the selector of the text field
+            by - the type of selector to search by (Default: CSS Selector)
+            timeout - how long to wait for the selector to be visible
         """
-        self.page_should_contain_element(locator)
-        self.element_should_be_visible(locator)
-        self.element_should_be_enabled(locator)
-        self.scroll_element_into_view(locator)
-        self.find_element(locator).clear()
+        element = self.find_element(locator)
+        try:
+            self._wait_for_ready_stage(locator)
+            element.clear()
+            backspaces = Keys.BACK_SPACE * 42  # Autofill Defense\
+            element.send_keys(backspaces)
+        except (StaleElementReferenceException,
+                MoveTargetOutOfBoundsException,
+                WebDriverException):
+            self._wait_for_ready_stage(locator)
+            element.clear()
+            backspaces = Keys.BACK_SPACE * 42  # Autofill Defense\
+            element.send_keys(backspaces)
+        return element.clear()
 
     @keyword
     def get_vertical_position(self, locator: str) -> int:
@@ -523,10 +570,7 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         The ``modifier`` argument is new in SeleniumLibrary 3.3
         """
-        self.page_should_contain_element(locator)
-        self.element_should_be_visible(locator)
-        self.element_should_be_enabled(locator)
-        self.scroll_element_into_view(locator)
+        self._wait_for_ready_stage(locator)
         if not modifier:
             self.info(f"Clicking button '{locator}'.")
             element = self.find_element(locator, tag="input", required=False)
@@ -1199,3 +1243,11 @@ return !element.dispatchEvent(evt);
 
     def _selenium_keys_has_attr(self, key):
         return hasattr(Keys, key)
+
+    def _wait_for_ready_stage(self, locator):
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_focused(locator)
+
