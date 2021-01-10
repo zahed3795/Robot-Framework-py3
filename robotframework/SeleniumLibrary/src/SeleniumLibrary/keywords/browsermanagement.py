@@ -68,7 +68,220 @@ class BrowserManagementKeywords(LibraryComponent):
         service_log_path: Optional[str] = None,
         executable_path: Optional[str] = None,
     ) -> str:
+        """Opens a new browser instance to the optional ``url``.
 
+        The ``browser`` argument specifies which browser to use. The
+        supported browsers are listed in the table below. The browser names
+        are case-insensitive and some browsers have multiple supported names.
+
+        |    = Browser =    |        = Name(s) =       |
+        | Firefox           | firefox, ff              |
+        | Google Chrome     | googlechrome, chrome, gc |
+        | Headless Firefox  | headlessfirefox          |
+        | Headless Chrome   | headlesschrome           |
+        | Internet Explorer | internetexplorer, ie     |
+        | Edge              | edge                     |
+        | Safari            | safari                   |
+        | Opera             | opera                    |
+        | Android           | android                  |
+        | Iphone            | iphone                   |
+        | PhantomJS         | phantomjs                |
+        | HTMLUnit          | htmlunit                 |
+        | HTMLUnit with Javascript | htmlunitwithjs    |
+
+        To be able to actually use one of these browsers, you need to have
+        a matching Selenium browser driver available. See the
+        [https://github.com/robotframework/SeleniumLibrary#browser-drivers|
+        project documentation] for more details. Headless Firefox and
+        Headless Chrome are new additions in SeleniumLibrary 3.1.0
+        and require Selenium 3.8.0 or newer.
+
+        After opening the browser, it is possible to use optional
+        ``url`` to navigate the browser to the desired address.
+
+        Optional ``alias`` is an alias given for this browser instance and
+        it can be used for switching between browsers. When same ``alias``
+        is given with two `Open Browser` keywords, the first keyword will
+        open a new browser, but the second one will switch to the already
+        opened browser and will not open a new browser. The ``alias``
+        definition overrules ``browser`` definition. When same ``alias``
+        is used but a different ``browser`` is defined, then switch to
+        a browser with same alias is done and new browser is not opened.
+        An alternative approach for switching is using an index returned
+        by this keyword. These indices start from 1, are incremented when new
+        browsers are opened, and reset back to 1 when `Close All Browsers`
+        is called. See `Switch Browser` for more information and examples.
+
+        Optional ``remote_url`` is the URL for a
+        [https://github.com/SeleniumHQ/selenium/wiki/Grid2|Selenium Grid].
+
+        Optional ``desired_capabilities`` can be used to configure, for example,
+        logging preferences for a browser or a browser and operating system
+        when using [http://saucelabs.com|Sauce Labs]. Desired capabilities can
+        be given either as a Python dictionary or as a string in the format
+        ``key1:value1,key2:value2``.
+        [https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities|
+        Selenium documentation] lists possible capabilities that can be
+        enabled.
+
+        Optional ``ff_profile_dir`` is the path to the Firefox profile
+        directory if you wish to overwrite the default profile Selenium
+        uses. Notice that prior to SeleniumLibrary 3.0, the library
+        contained its own profile that was used by default. The
+        ``ff_profile_dir`` can also be an instance of the
+        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver_firefox/selenium.webdriver.firefox.firefox_profile.html|selenium.webdriver.FirefoxProfile]
+        . As a third option, it is possible to use `FirefoxProfile` methods
+        and attributes to define the profile using methods and attributes
+        in the same way as with ``options`` argument. Example: It is possible
+        to use FirefoxProfile `set_preference` to define different
+        profile settings. See ``options`` argument documentation in below
+        how to handle backslash escaping.
+
+        Optional ``options`` argument allows defining browser specific
+        Selenium options. Example for Chrome, the ``options`` argument
+        allows defining the following
+        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver_chrome/selenium.webdriver.chrome.options.html#selenium.webdriver.chrome.options.Options|methods and attributes]
+        and for Firefox these
+        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver_firefox/selenium.webdriver.firefox.options.html?highlight=firefox#selenium.webdriver.firefox.options.Options|methods and attributes]
+        are available. Please note that not all browsers, supported by the
+        SeleniumLibrary, have Selenium options available. Therefore please
+        consult the Selenium documentation which browsers do support
+        the Selenium options. If ``browser`` argument is `android` then
+        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver_chrome/selenium.webdriver.chrome.options.html#selenium.webdriver.chrome.options.Options|Chrome options]
+        is used. Selenium options are also supported, when ``remote_url``
+        argument is used.
+
+        The SeleniumLibrary ``options`` argument accepts Selenium
+        options in two different formats: as a string and as Python object
+        which is an instance of the Selenium options class.
+
+        The string format allows defining Selenium options methods
+        or attributes and their arguments in Robot Framework test data.
+        The method and attributes names are case and space sensitive and
+        must match to the Selenium options methods and attributes names.
+        When defining a method, it must be defined in a similar way as in
+        python: method name, opening parenthesis, zero to many arguments
+        and closing parenthesis. If there is a need to define multiple
+        arguments for a single method, arguments must be separated with
+        comma, just like in Python. Example: `add_argument("--headless")`
+        or `add_experimental_option("key", "value")`. Attributes are
+        defined in a similar way as in Python: attribute name, equal sign,
+        and attribute value. Example, `headless=True`. Multiple methods
+        and attributes must be separated by a semicolon. Example:
+        `add_argument("--headless");add_argument("--start-maximized")`.
+
+        Arguments allow defining Python data types and arguments are
+        evaluated by using Python
+        [https://docs.python.org/3/library/ast.html#ast.literal_eval|ast.literal_eval].
+        Strings must be quoted with single or double quotes, example "value"
+        or 'value'. It is also possible to define other Python builtin
+        data types, example `True` or `None`, by not using quotes
+        around the arguments.
+
+        The string format is space friendly. Usually, spaces do not alter
+        the defining methods or attributes. There are two exceptions.
+        In some Robot Framework test data formats, two or more spaces are
+        considered as cell separator and instead of defining a single
+        argument, two or more arguments may be defined. Spaces in string
+        arguments are not removed and are left as is. Example
+        `add_argument ( "--headless" )` is same as
+        `add_argument("--headless")`. But `add_argument(" --headless ")` is
+        not same same as `add_argument ( "--headless" )`, because
+        spaces inside of quotes are not removed. Please note that if
+        options string contains backslash, example a Windows OS path,
+        the backslash needs escaping both in Robot Framework data and
+        in Python side. This means single backslash must be writen using
+        four backslash characters. Example, Windows path:
+        "C:\\path\\to\\profile" must be written as
+        "C:\\\\\\\\path\\\\\\to\\\\\\\\profile". Another way to write
+        backslash is use Python
+        [https://docs.python.org/3/reference/lexical_analysis.html#string-and-bytes-literals|raw strings]
+        and example write: r"C:\\\\path\\\\to\\\\profile".
+
+        As last format, ``options`` argument also supports receiving
+        the Selenium options as Python class instance. In this case, the
+        instance is used as-is and the SeleniumLibrary will not convert
+        the instance to other formats.
+        For example, if the following code return value is saved to
+        `${options}` variable in the Robot Framework data:
+        | options = webdriver.ChromeOptions()
+        | options.add_argument('--disable-dev-shm-usage')
+        | return options
+
+        Then the `${options}` variable can be used as an argument to
+        ``options``.
+
+        Example the ``options`` argument can be used to launch Chomium-based
+        applications which utilize the
+        [https://bitbucket.org/chromiumembedded/cef/wiki/UsingChromeDriver|Chromium Embedded Framework]
+        . To lauch Chomium-based application, use ``options`` to define
+        `binary_location` attribute and use `add_argument` method to define
+        `remote-debugging-port` port for the application. Once the browser
+        is opened, the test can interact with the embedded web-content of
+        the system under test.
+
+        Optional ``service_log_path`` argument defines the name of the
+        file where to write the browser driver logs. If the
+        ``service_log_path``  argument contain a  marker ``{index}``, it
+        will be automatically replaced with unique running
+        index preventing files to be overwritten. Indices start's from 1,
+        and how they are represented can be customized using Python's
+        [https://docs.python.org/3/library/string.html#format-string-syntax|
+        format string syntax].
+
+        Optional ``executable_path`` argument defines the path to the driver
+        executable, example to a chromedriver or a geckodriver. If not defined
+        it is assumed the executable is in the
+        [https://en.wikipedia.org/wiki/PATH_(variable)|$PATH].
+
+        Examples:
+        | `Open Browser` | http://example.com | Chrome  |                                         |
+        | `Open Browser` | http://example.com | Firefox | alias=Firefox                           |
+        | `Open Browser` | http://example.com | Edge    | remote_url=http://127.0.0.1:4444/wd/hub |
+        | `Open Browser` | about:blank        |         |                                         |
+        | `Open Browser` | browser=Chrome     |         |                                         |
+
+        Alias examples:
+        | ${1_index} =    | `Open Browser` | http://example.com | Chrome  | alias=Chrome     | # Opens new browser because alias is new.         |
+        | ${2_index} =    | `Open Browser` | http://example.com | Firefox |                  | # Opens new browser because alias is not defined. |
+        | ${3_index} =    | `Open Browser` | http://example.com | Chrome  | alias=Chrome     | # Switches to the browser with Chrome alias.      |
+        | ${4_index} =    | `Open Browser` | http://example.com | Chrome  | alias=${1_index} | # Switches to the browser with Chrome alias.      |
+        | Should Be Equal | ${1_index}     | ${3_index}         |         |                  |                                                   |
+        | Should Be Equal | ${1_index}     | ${4_index}         |         |                  |                                                   |
+        | Should Be Equal | ${2_index}     | ${2}               |         |                  |                                                   |
+
+        Example when using
+        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver_chrome/selenium.webdriver.chrome.options.html#selenium.webdriver.chrome.options.Options|Chrome options]
+        method:
+        | `Open Browser` | http://example.com | Chrome | options=add_argument("--disable-popup-blocking"); add_argument("--ignore-certificate-errors") | # Sting format.                    |
+        |  ${options} =  |     Get Options    |        |                                                                                               | # Selenium options instance.       |
+        | `Open Browser` | http://example.com | Chrome | options=${options}                                                                            |                                    |
+        | `Open Browser` | None               | Chrome | options=binary_location="/path/to/binary";add_argument("remote-debugging-port=port")          | # Start Chomium-based application. |
+        | `Open Browser` | None               | Chrome | options=binary_location=r"C:\\\\path\\\\to\\\\binary"                                         | # Windows OS path escaping.        |
+
+        Example for FirefoxProfile
+        | `Open Browser` | http://example.com | Firefox | ff_profile_dir=/path/to/profile                                                  | # Using profile from disk.                       |
+        | `Open Browser` | http://example.com | Firefox | ff_profile_dir=${FirefoxProfile_instance}                                        | # Using instance of FirefoxProfile.              |
+        | `Open Browser` | http://example.com | Firefox | ff_profile_dir=set_preference("key", "value");set_preference("other", "setting") | # Defining profile using FirefoxProfile mehtods. |
+
+        If the provided configuration options are not enough, it is possible
+        to use `Create Webdriver` to customize browser initialization even
+        more.
+
+        Applying ``desired_capabilities`` argument also for local browser is
+        new in SeleniumLibrary 3.1.
+
+        Using ``alias`` to decide, is the new browser opened is new
+        in SeleniumLibrary 4.0. The ``options`` and ``service_log_path``
+        are new in SeleniumLibrary 4.0. Support for ``ff_profile_dir``
+        accepting an instance of the `selenium.webdriver.FirefoxProfile`
+        and support defining FirefoxProfile with methods and
+        attributes are new in SeleniumLibrary 4.0.
+
+        Making ``url`` optional is new in SeleniumLibrary 4.1.
+
+        The ``executable_path`` argument is new in SeleniumLibrary 4.2.
+        """
         index = self.drivers.get_index(alias)
         if index:
             self.info(f"Using existing browser from index {index}.")
@@ -359,7 +572,6 @@ class BrowserManagementKeywords(LibraryComponent):
 
         ``message`` argument is new in SeleniumLibrary 3.1.
         """
-        time.sleep(2)
         actual = self.get_title()
         if actual != title:
             if message is None:

@@ -151,10 +151,6 @@ class ScreenshotKeywords(LibraryComponent):
                 "Cannot capture screenshot from element because no browser is open."
             )
             return
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         element = self.find_element(locator, required=True)
         if self._decide_embedded(filename):
             return self._capture_element_screen_to_log(element)

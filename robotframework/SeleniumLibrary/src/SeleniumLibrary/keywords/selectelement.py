@@ -39,10 +39,6 @@ class SelectElementKeywords(LibraryComponent):
 
         Support to return values is new in SeleniumLibrary 3.0.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         options = self._get_options(locator)
         if is_truthy(values):
             return self._get_values(options)
@@ -59,10 +55,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         select = self._get_select_list(locator)
         return select.first_selected_option.text
 
@@ -76,10 +68,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         options = self._get_selected_options(locator)
         return self._get_labels(options)
 
@@ -93,10 +81,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         select = self._get_select_list(locator)
         return select.first_selected_option.get_attribute("value")
 
@@ -110,10 +94,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         options = self._get_selected_options(locator)
         return self._get_values(options)
 
@@ -141,10 +121,6 @@ class SelectElementKeywords(LibraryComponent):
             f"Verifying list '{locator}' has option{plural_or_not(expected)} "
             f"[ {' | '.join(expected)} ] selected."
         )
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.page_should_contain_list(locator)
         options = self._get_selected_options(locator)
         labels = self._get_labels(options)
@@ -165,10 +141,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.info(f"Verifying list '{locator}' has no selections.")
         options = self._get_selected_options(locator)
         if options:
@@ -192,10 +164,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.assert_page_contains(locator, "list", message, loglevel)
 
     @keyword
@@ -210,10 +178,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.assert_page_not_contains(locator, "list", message, loglevel)
 
     @keyword
@@ -223,10 +187,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.info(f"Selecting all options from list '{locator}'.")
         select = self._get_select_list(locator)
         if not select.is_multiple:
@@ -250,10 +210,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not indexes:
             raise ValueError("No indexes given.")
         plural = "" if len(indexes) == 1 else "es"
@@ -277,10 +233,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not values:
             raise ValueError("No values given.")
         self.info(
@@ -303,10 +255,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not labels:
             raise ValueError("No labels given.")
         self.info(
@@ -326,10 +274,6 @@ class SelectElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.0.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         self.info(f"Unselecting all options from list '{locator}'.")
         select = self._get_select_list(locator)
         if not select.is_multiple:
@@ -348,10 +292,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not indexes:
             raise ValueError("No indexes given.")
         plurar = "" if len(indexes) == 1 else "es"
@@ -376,10 +316,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not values:
             raise ValueError("No values given.")
         self.info(
@@ -403,10 +339,6 @@ class SelectElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        self.element_should_be_enabled(locator)
-        self.element_should_be_visible(locator)
-        self.scroll_element_into_view(locator)
-        self.set_focus_to_element(locator)
         if not labels:
             raise ValueError("No labels given.")
         self.info(
