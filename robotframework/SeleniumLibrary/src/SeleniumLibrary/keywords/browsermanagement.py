@@ -378,6 +378,8 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def go_back(self):
         """Simulates the user clicking the back button on their browser."""
+        self.driver.refresh()
+        self.get_location()
         self.driver.back()
 
     @keyword

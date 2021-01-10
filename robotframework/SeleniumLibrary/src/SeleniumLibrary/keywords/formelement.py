@@ -47,6 +47,10 @@ class FormElementKeywords(LibraryComponent):
         syntax.
         """
         self.info(f"Verifying checkbox '{locator}' is selected.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self._get_checkbox(locator)
         if not element.is_selected():
             raise AssertionError(
@@ -60,6 +64,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.info(f"Verifying checkbox '{locator}' is not selected.")
         element = self._get_checkbox(locator)
         if element.is_selected():
@@ -77,6 +85,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_contains(locator, "checkbox", message, loglevel)
 
     @keyword
@@ -91,6 +103,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "checkbox", message, loglevel)
 
     @keyword
@@ -103,6 +119,10 @@ class FormElementKeywords(LibraryComponent):
         syntax.
         """
         self.info(f"Selecting checkbox '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self._get_checkbox(locator)
         if not element.is_selected():
             element.click()
@@ -117,6 +137,10 @@ class FormElementKeywords(LibraryComponent):
         syntax.
         """
         self.info(f"Unselecting checkbox '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self._get_checkbox(locator)
         if element.is_selected():
             element.click()
@@ -134,6 +158,10 @@ class FormElementKeywords(LibraryComponent):
         syntax. When using the default locator strategy, radio buttons are
         searched using ``id``, ``name`` and ``value``.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_contains(locator, "radio button", message, loglevel)
 
     @keyword
@@ -149,6 +177,10 @@ class FormElementKeywords(LibraryComponent):
         syntax. When using the default locator strategy, radio buttons are
         searched using ``id``, ``name`` and ``value``.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "radio button", message, loglevel)
 
     @keyword
@@ -219,6 +251,10 @@ class FormElementKeywords(LibraryComponent):
         | `Choose File` | my_upload_field | ${CURDIR}/trades.csv |
         """
         self.ctx._running_keyword = "choose_file"
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         try:
             self.info(f"Sending {os.path.abspath(file_path)} to browser.")
             self.find_element(locator).send_keys(file_path)
@@ -251,6 +287,10 @@ class FormElementKeywords(LibraryComponent):
         logging from Selenium logs is new in SeleniumLibrary 4.2.
         """
         self.info(f"Typing password into text field '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self._input_text_into_text_field(locator, password, clear, disable_log=True)
 
     @keyword
@@ -276,6 +316,10 @@ class FormElementKeywords(LibraryComponent):
         Disabling the file upload the Selenium Grid node and the `clear`
         argument are new in SeleniumLibrary 4.0
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.info(f"Typing text '{text}' into text field '{locator}'.")
         self._input_text_into_text_field(locator, text, clear)
 
@@ -291,6 +335,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_contains(locator, "text field", message, loglevel)
 
     @keyword
@@ -305,6 +353,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "text field", message, loglevel)
 
     @keyword
@@ -319,6 +371,10 @@ class FormElementKeywords(LibraryComponent):
         syntax.
         """
         actual = self._get_value(locator, "text field")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         if expected not in actual:
             if message is None:
                 message = (
@@ -339,6 +395,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         actual = self._get_value(locator, "text field")
         if actual != expected:
             if message is None:
@@ -360,6 +420,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         actual = self._get_value(locator, "text area")
         if expected not in actual:
             if message is None:
@@ -381,6 +445,10 @@ class FormElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         actual = self._get_value(locator, "text area")
         if expected != actual:
             if message is None:
@@ -404,6 +472,10 @@ class FormElementKeywords(LibraryComponent):
         syntax. When using the default locator strategy, buttons are
         searched using ``id``, ``name``, and ``value``.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         try:
             self.assert_page_contains(locator, "input", message, loglevel)
         except AssertionError:
@@ -422,6 +494,10 @@ class FormElementKeywords(LibraryComponent):
         syntax. When using the default locator strategy, buttons are
         searched using ``id``, ``name``, and ``value``.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "button", message, loglevel)
         self.assert_page_not_contains(locator, "input", message, loglevel)
 
