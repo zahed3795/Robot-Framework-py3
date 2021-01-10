@@ -13,9 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import time
 from collections import namedtuple
 from typing import List, Optional, Tuple, Union
-
+from selenium.common.exceptions import (StaleElementReferenceException,
+                                        MoveTargetOutOfBoundsException,
+                                        WebDriverException)
 from SeleniumLibrary.utils import is_noney
 from SeleniumLibrary.utils.events.event import _unwrap_eventfiring_element
 from robot.utils import plural_or_not, is_truthy
@@ -35,6 +38,8 @@ class ElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         return self.find_element(locator)
 
     @keyword(name="Get WebElements")
@@ -48,15 +53,17 @@ class ElementKeywords(LibraryComponent):
         list if there are no matching elements. In previous releases, the
         keyword failed in this case.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         return self.find_elements(locator)
 
     @keyword
     def element_should_contain(
-        self,
-        locator: str,
-        expected: str,
-        message: Optional[str] = None,
-        ignore_case: bool = False,
+            self,
+            locator: str,
+            expected: str,
+            message: Optional[str] = None,
+            ignore_case: bool = False,
     ):
         """Verifies that element ``locator`` contains text ``expected``.
 
@@ -90,11 +97,11 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def element_should_not_contain(
-        self,
-        locator: str,
-        expected: str,
-        message: Optional[str] = None,
-        ignore_case: bool = False,
+            self,
+            locator: str,
+            expected: str,
+            message: Optional[str] = None,
+            ignore_case: bool = False,
     ):
         """Verifies that element ``locator`` does not contain text ``expected``.
 
@@ -109,6 +116,8 @@ class ElementKeywords(LibraryComponent):
 
         ``ignore_case`` argument new in SeleniumLibrary 3.1.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         actual = self.find_element(locator).text
         expected_before = expected
         if ignore_case:
@@ -141,37 +150,8 @@ class ElementKeywords(LibraryComponent):
         self.info(f"Current page contains text '{text}'.")
 
     @keyword
-    def page_should_contain_element(
-        self,
-        locator: str,
-        message: Optional[str] = None,
-        loglevel: str = "TRACE",
-        limit: Optional[int] = None,
-    ):
-        """Verifies that element ``locator`` is found on the current page.
-
-        See the `Locating elements` section for details about the locator
-        syntax.
-
-        The ``message`` argument can be used to override the default error
-        message.
-
-        The ``limit`` argument can used to define how many elements the
-        page should contain. When ``limit`` is ``None`` (default) page can
-        contain one or more elements. When limit is a number, page must
-        contain same number of elements.
-
-        See `Page Should Contain` for an explanation about the ``loglevel``
-        argument.
-
-        Examples assumes that locator matches to two elements.
-        | `Page Should Contain Element` | div_name | limit=1    | # Keyword fails.                  |
-        | `Page Should Contain Element` | div_name | limit=2    | # Keyword passes.                 |
-        | `Page Should Contain Element` | div_name | limit=none | # None is considered one or more. |
-        | `Page Should Contain Element` | div_name |            | # Same as above.                  |
-
-        The ``limit`` argument is new in SeleniumLibrary 3.0.
-        """
+    def page_should_contain_element(self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE",
+                                    limit: Optional[int] = None, ):
         if limit is None:
             return self.assert_page_contains(
                 locator, message=message, loglevel=loglevel
@@ -202,7 +182,7 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def page_should_not_contain_element(
-        self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
+            self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
     ):
         """Verifies that element ``locator`` is not found on the current page.
 
@@ -256,6 +236,7 @@ class ElementKeywords(LibraryComponent):
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self._wait_for_ready_stage()
         if not self.is_element_enabled(locator):
             raise AssertionError(f"Element '{locator}' is disabled.")
 
@@ -268,6 +249,8 @@ class ElementKeywords(LibraryComponent):
 
         New in SeleniumLibrary 3.0.
         """
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         element = self.find_element(locator)
         focused = self.driver.switch_to.active_element
         # Selenium 3.6.0 with Firefox return dict which contains the selenium WebElement
@@ -299,7 +282,7 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def element_should_not_be_visible(
-        self, locator: str, message: Optional[str] = None
+            self, locator: str, message: Optional[str] = None
     ):
         """Verifies that the element identified by ``locator`` is NOT visible.
 
@@ -318,11 +301,11 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def element_text_should_be(
-        self,
-        locator: str,
-        expected: str,
-        message: Optional[str] = None,
-        ignore_case: bool = False,
+            self,
+            locator: str,
+            expected: str,
+            message: Optional[str] = None,
+            ignore_case: bool = False,
     ):
         """Verifies that element ``locator`` contains exact the text ``expected``.
 
@@ -340,6 +323,7 @@ class ElementKeywords(LibraryComponent):
         Use `Element Should Contain` if a substring match is desired.
         """
         self.info(f"Verifying element '{locator}' contains exact text '{expected}'.")
+        self._wait_for_ready_stage(locator)
         text = before_text = self.find_element(locator).text
         if ignore_case:
             text = text.lower()
@@ -354,11 +338,11 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def element_text_should_not_be(
-        self,
-        locator: str,
-        not_expected: str,
-        message: Optional[str] = None,
-        ignore_case: bool = False,
+            self,
+            locator: str,
+            not_expected: str,
+            message: Optional[str] = None,
+            ignore_case: bool = False,
     ):
         """Verifies that element ``locator`` does not contain exact the text ``not_expected``.
 
@@ -404,7 +388,7 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def element_attribute_value_should_be(
-        self, locator: str, attribute: str, expected: str, message: Optional[str] = None
+            self, locator: str, attribute: str, expected: str, message: Optional[str] = None
     ):
         """Verifies element identified by ``locator`` contains expected attribute value.
 
@@ -454,6 +438,7 @@ class ElementKeywords(LibraryComponent):
         Example:
         | ${width} | ${height} = | `Get Element Size` | css:div#container |
         """
+        self._wait_for_ready_stage(locator)
         element = self.find_element(locator)
         return element.size["width"], element.size["height"]
 
@@ -469,6 +454,7 @@ class ElementKeywords(LibraryComponent):
         Example:
         |`Cover Element` | css:div#container |
         """
+        self._wait_for_ready_stage(locator)
         elements = self.find_elements(locator)
         if not elements:
             raise ElementNotFound(f"No element with locator '{locator}' found.")
@@ -496,25 +482,66 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        try:
+            ElementKeywords.element_should_be_enabled(locator)
+            ElementKeywords.element_should_be_visible(locator)
+        except:
+            print(str(locator) + 'not found')
         return self.get_element_attribute(locator, "value")
 
     @keyword
-    def get_text(self, locator: str) -> str:
+    def get_text(self, locator: str, timeout=None) -> str:
         """Returns the text value of the element identified by ``locator``.
 
         See the `Locating elements` section for details about the locator
         syntax.
         """
-        return self.find_element(locator).text
+        if not timeout:
+            timeout = .25
+        element = self.find_element(locator)
+        element.text()
+        try:
+            self.timeout()
+            self.clear_element_text(locator)
+            element.text()
+        except (StaleElementReferenceException,
+                MoveTargetOutOfBoundsException,
+                WebDriverException):
+            self.timeout()
+            self._wait_for_ready_stage(locator)
+            self.clear_element_text(locator)
+            element.text()
+        return element.text()
 
     @keyword
     def clear_element_text(self, locator: str):
-        """Clears the value of the text-input-element identified by ``locator``.
-
-        See the `Locating elements` section for details about the locator
-        syntax.
+        """ This method clears an element's text field.
+            A clear() is already included with most methods that type text,
+            such as self.type(), self.update_text(), etc.
+            Does not use Demo Mode highlights, mainly because we expect
+            that some users will be calling an unnecessary clear() before
+            calling a method that already includes clear() as part of it.
+            In case websites trigger an autofill after clearing a field,
+            add backspaces to make sure autofill doesn't undo the clear.
+            @Params
+            selector - the selector of the text field
+            by - the type of selector to search by (Default: CSS Selector)
+            timeout - how long to wait for the selector to be visible
         """
-        self.find_element(locator).clear()
+        element = self.find_element(locator)
+        try:
+            self._wait_for_ready_stage(locator)
+            element.clear()
+            backspaces = Keys.BACK_SPACE * 42  # Autofill Defense\
+            element.send_keys(backspaces)
+        except (StaleElementReferenceException,
+                MoveTargetOutOfBoundsException,
+                WebDriverException):
+            self._wait_for_ready_stage(locator)
+            element.clear()
+            backspaces = Keys.BACK_SPACE * 42  # Autofill Defense\
+            element.send_keys(backspaces)
+        return element.clear()
 
     @keyword
     def get_vertical_position(self, locator: str) -> int:
@@ -543,6 +570,7 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         The ``modifier`` argument is new in SeleniumLibrary 3.3
         """
+        self._wait_for_ready_stage(locator)
         if not modifier:
             self.info(f"Clicking button '{locator}'.")
             element = self.find_element(locator, tag="input", required=False)
@@ -565,6 +593,10 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         The ``modifier`` argument is new in SeleniumLibrary 3.3
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
         if not modifier:
             self.info(f"Clicking image '{locator}'.")
             element = self.find_element(locator, tag="image", required=False)
@@ -588,6 +620,10 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         The ``modifier`` argument is new in SeleniumLibrary 3.3
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
         if not modifier:
             self.info(f"Clicking link '{locator}'.")
             self.find_element(locator, tag="link").click()
@@ -596,40 +632,15 @@ newDiv.parentNode.style.overflow = 'hidden';
 
     @keyword
     def click_element(
-        self,
-        locator: str,
-        modifier: Union[str, bool] = False,
-        action_chain: bool = False,
+            self,
+            locator: str,
+            modifier: Union[str, bool] = False,
+            action_chain: bool = False,
     ):
-        """Click the element identified by ``locator``.
-
-        See the `Locating elements` section for details about the locator
-        syntax.
-
-        The ``modifier`` argument can be used to pass
-        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys|Selenium Keys]
-        when clicking the element. The `+` can be used as a separator
-        for different Selenium Keys. The `CTRL` is internally translated to
-        the `CONTROL` key. The ``modifier`` is space and case insensitive, example
-        "alt" and " aLt " are supported formats to
-        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.ALT|ALT key]
-        . If ``modifier`` does not match to Selenium Keys, keyword fails.
-
-        If ``action_chain`` argument is true, see `Boolean arguments` for more
-        details on how to set boolean argument, then keyword uses ActionChain
-        based click instead of the <web_element>.click() function. If both
-        ``action_chain`` and ``modifier`` are defined, the click will be
-        performed using ``modifier`` and ``action_chain`` will be ignored.
-
-        Example:
-        | Click Element | id:button |                   | # Would click element without any modifiers.               |
-        | Click Element | id:button | CTRL              | # Would click element with CTLR key pressed down.          |
-        | Click Element | id:button | CTRL+ALT          | # Would click element with CTLR and ALT keys pressed down. |
-        | Click Element | id:button | action_chain=True | # Clicks the button using an Selenium  ActionChains        |
-
-        The ``modifier`` argument is new in SeleniumLibrary 3.2
-        The ``action_chain`` argument is new in SeleniumLibrary 4.1
-        """
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
         if is_truthy(modifier):
             self._click_with_modifier(locator, [None, None], modifier)
         elif action_chain:
@@ -695,6 +706,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         See the `Locating elements` section for details about the locator
         syntax.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
         self.info(f"Double clicking element '{locator}'.")
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
@@ -723,6 +738,8 @@ newDiv.parentNode.style.overflow = 'hidden';
 
         New in SeleniumLibrary 3.2.0
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -739,6 +756,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         Example:
         | `Drag And Drop` | css:div#element | css:div.target |
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -761,6 +782,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         Example:
         | `Drag And Drop By Offset` | myElem | 50 | -35 | # Move myElem 50px right and 35px down |
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -781,6 +806,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         `Mouse Down On Link`.
         """
         self.info(f"Simulating Mouse Down on element '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -795,6 +824,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         syntax.
         """
         self.info(f"Simulating Mouse Out on element '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -814,6 +847,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         syntax.
         """
         self.info(f"Simulating Mouse Over on element '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -828,6 +865,10 @@ newDiv.parentNode.style.overflow = 'hidden';
         syntax.
         """
         self.info(f"Simulating Mouse Up on element '{locator}'.")
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -836,6 +877,10 @@ newDiv.parentNode.style.overflow = 'hidden';
     @keyword
     def open_context_menu(self, locator: str):
         """Opens the context menu on the element identified by ``locator``."""
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator)
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -870,6 +915,10 @@ return !element.dispatchEvent(evt);
     @keyword
     def press_key(self, locator: str, key: str):
         """*DEPRECATED in SeleniumLibrary 4.0.* use `Press Keys` instead."""
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         if key.startswith("\\") and len(key) > 1:
             key = self._map_ascii_key_code_to_key(int(key[1:]))
         element = self.find_element(locator)
@@ -877,52 +926,10 @@ return !element.dispatchEvent(evt);
 
     @keyword
     def press_keys(self, locator: Optional[str] = None, *keys: str):
-        """Simulates the user pressing key(s) to an element or on the active browser.
-
-        If ``locator`` evaluates as false, see `Boolean arguments` for more
-        details, then the ``keys`` are sent to the currently active browser.
-        Otherwise element is searched and ``keys`` are send to the element
-        identified by the ``locator``. In later case, keyword fails if element
-        is not found. See the `Locating elements` section for details about
-        the locator syntax.
-
-        ``keys`` arguments can contain one or many strings, but it can not
-        be empty. ``keys`` can also be a combination of
-        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html|Selenium Keys]
-        and strings or a single Selenium Key. If Selenium Key is combined
-        with strings, Selenium key and strings must be separated by the
-        `+` character, like in `CONTROL+c`. Selenium Keys
-        are space and case sensitive and Selenium Keys are not parsed
-        inside of the string. Example AALTO, would send string `AALTO`
-        and `ALT` not parsed inside of the string. But `A+ALT+O` would
-        found Selenium ALT key from the ``keys`` argument. It also possible
-        to press many Selenium Keys down at the same time, example
-        'ALT+ARROW_DOWN`.
-
-        If Selenium Keys are detected in the ``keys`` argument, keyword
-        will press the Selenium Key down, send the strings and
-         then release the Selenium Key. If keyword needs to send a Selenium
-        Key as a string, then each character must be separated with
-        `+` character, example `E+N+D`.
-
-        `CTRL` is alias for
-        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.CONTROL|Selenium CONTROL]
-        and ESC is alias for
-        [https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html#selenium.webdriver.common.keys.Keys.ESCAPE|Selenium ESCAPE]
-
-        New in SeleniumLibrary 3.3
-
-        Examples:
-        | `Press Keys` | text_field | AAAAA          |            | # Sends string "AAAAA" to element.                                                |
-        | `Press Keys` | None       | BBBBB          |            | # Sends string "BBBBB" to currently active browser.                               |
-        | `Press Keys` | text_field | E+N+D          |            | # Sends string "END" to element.                                                  |
-        | `Press Keys` | text_field | XXX            | YY         | # Sends strings "XXX" and "YY" to element.                                        |
-        | `Press Keys` | text_field | XXX+YY         |            | # Same as above.                                                                  |
-        | `Press Keys` | text_field | ALT+ARROW_DOWN |            | # Pressing "ALT" key down, then pressing ARROW_DOWN and then releasing both keys. |
-        | `Press Keys` | text_field | ALT            | ARROW_DOWN | # Pressing "ALT" key and then pressing ARROW_DOWN.                                |
-        | `Press Keys` | text_field | CTRL+c         |            | # Pressing CTRL key down, sends string "c" and then releases CTRL key.            |
-        | `Press Keys` | button     | RETURN         |            | # Pressing "ENTER" key to element.                                                |
-        """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         parsed_keys = self._parse_keys(*keys)
         if not is_noney(locator):
             self.info(f"Sending key(s) {keys} to {locator} element.")
@@ -981,6 +988,10 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, links are searched
         using ``id``, ``name``, ``href`` and the link text.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator, tag="link")
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -989,7 +1000,7 @@ return !element.dispatchEvent(evt);
 
     @keyword
     def page_should_contain_link(
-        self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
+            self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
     ):
         """Verifies link identified by ``locator`` is found from current page.
 
@@ -1000,11 +1011,15 @@ return !element.dispatchEvent(evt);
         See `Page Should Contain Element` for an explanation about ``message``
         and ``loglevel`` arguments.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_contains(locator, "link", message, loglevel)
 
     @keyword
     def page_should_not_contain_link(
-        self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
+            self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
     ):
         """Verifies link identified by ``locator`` is not found from current page.
 
@@ -1015,6 +1030,10 @@ return !element.dispatchEvent(evt);
         See `Page Should Contain Element` for an explanation about ``message``
         and ``loglevel`` arguments.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "link", message, loglevel)
 
     @keyword
@@ -1025,6 +1044,10 @@ return !element.dispatchEvent(evt);
         syntax. When using the default locator strategy, images are searched
         using ``id``, ``name``, ``src`` and ``alt``.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         element = self.find_element(locator, tag="image")
         # _unwrap_eventfiring_element can be removed when minimum required Selenium is 4.0 or greater.
         element = _unwrap_eventfiring_element(element)
@@ -1033,7 +1056,7 @@ return !element.dispatchEvent(evt);
 
     @keyword
     def page_should_contain_image(
-        self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
+            self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
     ):
         """Verifies image identified by ``locator`` is found from current page.
 
@@ -1044,11 +1067,15 @@ return !element.dispatchEvent(evt);
         See `Page Should Contain Element` for an explanation about ``message``
         and ``loglevel`` arguments.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_contains(locator, "image", message, loglevel)
 
     @keyword
     def page_should_not_contain_image(
-        self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
+            self, locator: str, message: Optional[str] = None, loglevel: str = "TRACE"
     ):
         """Verifies image identified by ``locator`` is not found from current page.
 
@@ -1059,6 +1086,10 @@ return !element.dispatchEvent(evt);
         See `Page Should Contain Element` for an explanation about ``message``
         and ``loglevel`` arguments.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         self.assert_page_not_contains(locator, "image", message, loglevel)
 
     @keyword
@@ -1075,11 +1106,15 @@ return !element.dispatchEvent(evt);
 
         New in SeleniumLibrary 3.0.
         """
+        self.page_should_contain_element(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_visible(locator)
         return len(self.find_elements(locator))
 
     @keyword
     def add_location_strategy(
-        self, strategy_name: str, strategy_keyword: str, persist: bool = False
+            self, strategy_name: str, strategy_keyword: str, persist: bool = False
     ):
         """Adds a custom location strategy.
 
@@ -1208,3 +1243,11 @@ return !element.dispatchEvent(evt);
 
     def _selenium_keys_has_attr(self, key):
         return hasattr(Keys, key)
+
+    def _wait_for_ready_stage(self, locator):
+        self.page_should_contain_element(locator)
+        self.element_should_be_visible(locator)
+        self.element_should_be_enabled(locator)
+        self.scroll_element_into_view(locator)
+        self.element_should_be_focused(locator)
+
