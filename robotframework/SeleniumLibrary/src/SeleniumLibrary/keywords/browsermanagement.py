@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import sys
 import time
 import types
 from datetime import timedelta
@@ -277,12 +277,22 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def get_title(self) -> str:
         """Returns the title of the current page."""
+
+        time.sleep(0.12)
+        self.get_location()
         return self.driver.title
 
     @keyword
     def get_location(self) -> str:
         """Returns the current browser window URL."""
-        return self.driver.current_url
+        current_url = self.driver.current_url
+        if "%" in current_url and sys.version_info[0] >= 3:
+            try:
+                from urllib.parse import unquote
+                current_url = unquote(current_url, errors='strict')
+            except Exception:
+                pass
+        return current_url
 
     @keyword
     def location_should_be(self, url: str, message: Optional[str] = None):
