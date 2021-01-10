@@ -20,6 +20,9 @@ from robot.utils import get_link_path
 from SeleniumLibrary.base import LibraryComponent, keyword
 from SeleniumLibrary.utils.path_formatter import _format_path
 
+from robotframework.SeleniumLibrary.src.SeleniumLibrary.keywords import browsermanagement, BrowserManagementKeywords, \
+    ElementKeywords
+
 DEFAULT_FILENAME_PAGE = "selenium-screenshot-{index}.png"
 DEFAULT_FILENAME_ELEMENT = "selenium-element-screenshot-{index}.png"
 EMBED = "EMBED"
@@ -152,6 +155,8 @@ class ScreenshotKeywords(LibraryComponent):
             )
             return
         element = self.find_element(locator, required=True)
+        ElementKeywords.element_should_be_enabled(locator)
+        ElementKeywords.element_should_be_visible(locator)
         if self._decide_embedded(filename):
             return self._capture_element_screen_to_log(element)
         return self._capture_element_screenshot_to_file(element, filename)
