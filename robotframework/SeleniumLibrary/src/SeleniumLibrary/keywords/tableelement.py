@@ -41,6 +41,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain` for an explanation about the ``loglevel``
         argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         if row == 0 or column == 0:
             raise ValueError(
                 "Both row and column must be non-zero, "
@@ -94,6 +98,10 @@ class TableElementKeywords(LibraryComponent):
         See `Get Table Cell` that this keyword uses internally for
         an explanation about accepted arguments.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         content = self.get_table_cell(locator, row, column, loglevel)
         if expected not in content:
             self.ctx.log_source(loglevel)
@@ -123,6 +131,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain Element` for an explanation about the
         ``loglevel`` argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         element = self._find_by_column(locator, column, expected)
         if element is None:
             self.ctx.log_source(loglevel)
@@ -145,6 +157,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain Element` for an explanation about the
         ``loglevel`` argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         element = self._find_by_footer(locator, expected)
         if element is None:
             self.ctx.log_source(loglevel)
@@ -167,6 +183,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain Element` for an explanation about the
         ``loglevel`` argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         element = self._find_by_header(locator, expected)
         if element is None:
             self.ctx.log_source(loglevel)
@@ -194,6 +214,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain Element` for an explanation about the
         ``loglevel`` argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         element = self._find_by_row(locator, row, expected)
         if element is None:
             self.ctx.log_source(loglevel)
@@ -213,6 +237,10 @@ class TableElementKeywords(LibraryComponent):
         See `Page Should Contain Element` for an explanation about the
         ``loglevel`` argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         element = self._find_by_content(locator, expected)
         if element is None:
             self.ctx.log_source(loglevel)

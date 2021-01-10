@@ -34,6 +34,10 @@ class FrameKeywords(LibraryComponent):
         | `Unselect Frame` |           | # Back to main frame.                        |
         | `Select Frame`   | //iframe[@name='xxx'] | # Select frame using xpath       |
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         self.info(f"Selecting frame '{locator}'.")
         element = self.find_element(locator)
         self.driver.switch_to.frame(element)
@@ -87,6 +91,10 @@ class FrameKeywords(LibraryComponent):
         See `Page Should Contain` for an explanation about the ``loglevel``
         argument.
         """
+        self.element_should_be_enabled(locator)
+        self.element_should_be_visible(locator)
+        self.scroll_element_into_view(locator)
+        self.set_focus_to_element(locator)
         if not self._frame_contains(locator, text):
             self.log_source(loglevel)
             raise AssertionError(
