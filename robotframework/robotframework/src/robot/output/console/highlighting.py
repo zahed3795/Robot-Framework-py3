@@ -54,6 +54,8 @@ class HighlightingStream(object):
             self.flush()
 
     def _write(self, text, retry=5):
+        # Workaround for Windows 10 console bug:
+        # https://github.com/robotframework/robotframework/issues/2709
         try:
             with self._suppress_broken_pipe_error:
                 self.stream.write(text)
