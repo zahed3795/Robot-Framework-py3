@@ -7,4 +7,5 @@ pip install robotframework-seleniumlibrary
 pip install robotframework-datadriver
 pip install robotframework-pabot
 pip install robotframework-requests
+pip install -U robotframework-datadriver
 pip install -U robotframework-datadriver[XLS]

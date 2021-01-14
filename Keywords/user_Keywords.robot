@@ -39,7 +39,7 @@ Key send password
 Key send Encrypt password
     [Arguments]    ${locator}    ${text}
     Clear Element Text    ${locator}
-    Input Guild Encrypt Text    ${locator}    ${text}
+    Input Password    ${locator}    ${text}
 
 key Launch driver
     ${browser}    Key Get XML Value    browser
